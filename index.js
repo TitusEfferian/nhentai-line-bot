@@ -1,11 +1,9 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
 
-const { accessToken, channelSecret } = require('./private-key');
-
 const config = {
-    channelAccessToken: process.env.ACCESS_TOKEN || accessToken,
-    channelSecret: process.env.CHANNEL_SECRET || channelSecret,
+    channelAccessToken: process.env.ACCESS_TOKEN,
+    channelSecret: process.env.CHANNEL_SECRET,
 };
 
 const app = express();
