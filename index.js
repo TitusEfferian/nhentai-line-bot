@@ -27,4 +27,4 @@ function handleEvent(event) {
     });
 }
 
-module.exports = app;
+app.listen(8080);
