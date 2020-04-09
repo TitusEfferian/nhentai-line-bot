@@ -21,7 +21,7 @@ const handleEvent = (event) => {
      * handle all text case
      */
     if (event.message.type === 'text') {
-        if (event.message.text.toLowerCase().includes('efferian')) {
+        if (event.message.text.toLowerCase().startsWith('efferian')) {
             return client.replyMessage(event.replyToken, {
                 type: 'text',
                 text: 'efferian detected, database counter + 1',
