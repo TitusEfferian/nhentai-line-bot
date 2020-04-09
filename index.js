@@ -28,7 +28,8 @@ const handleEvent = (event) => {
             });
         }
         if(event.message.text.toLowerCase().includes('/add')) {
-            handleAddToDatabase();
+            const dataToDatabase = event.message.text.toLowerCase().split('/add ');
+            handleAddToDatabase(dataToDatabase);
             return client.replyMessage(event.replyToken, {
                 type: 'text',
                 text: 'success add to database',

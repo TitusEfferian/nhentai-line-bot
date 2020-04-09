@@ -1,12 +1,10 @@
 const db = require('../DatabaseConnector');
 
-const handleAddToDatabase = () => {
-    let docRef = db.collection('users').doc('alovelace');
+const handleAddToDatabase = (data) => {
+    let docRef = db.collection('TopEfferiaMoment').doc(data);
 
     let setAda = docRef.set({
-        first: 'Ada',
-        last: 'Lovelace',
-        born: 1815
+        name: data
     });
 
 };
