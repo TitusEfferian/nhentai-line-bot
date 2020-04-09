@@ -27,4 +27,7 @@ function handleEvent(event) {
     });
 }
 
-app.listen(8080);
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+    console.log('webhook on port', port);
+});
