@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/firestore": "^3.7.3",
     "@line/bot-sdk": "^6.8.4",
     "express": "^4.17.1"
   }
