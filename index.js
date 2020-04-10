@@ -74,4 +74,4 @@ app.post('/webhook', line.middleware(config), (req, res) => {
 //     console.log('webhook on port', port);
 // });
 
-exports.webhoook = app;
+exports.webhook = app;
