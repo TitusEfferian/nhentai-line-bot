@@ -14,7 +14,7 @@ const handleGetTopPlayer = (resultCallbackWithData, resultCallbackWithNoData) =>
                     efferian_points: doc.data().efferian_points,
                 });
             });
-            resultCallback(arrayOfResult);
+            resultCallbackWithData(arrayOfResult);
         }
     }).catch(err => {
         console.error(err);
