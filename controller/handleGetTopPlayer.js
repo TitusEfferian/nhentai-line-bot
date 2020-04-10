@@ -2,7 +2,7 @@ const db = require('../DatabaseConnector');
 
 const handleGetTopPlayer = (resultCallbackWithData, resultCallbackWithNoData, onError) => {
     const docRef = db.collection('TopEfferianMoment').orderBy("efferian_points", "desc").limit(10);
-    const getUserData = docRef.get().then(snapshot => {
+    docRef.get().then(snapshot => {
         const arrayOfResult = [];
         snapshot.forEach(doc => {
             arrayOfResult.push({

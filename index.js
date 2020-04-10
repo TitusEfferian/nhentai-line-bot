@@ -22,6 +22,7 @@ const handleEvent = (event) => {
      * handle all text case
      */
     if (event.message.type === 'text') {
+        console.log(event);
         if (event.message.text.toLowerCase().startsWith('!usage')) {
             return client.replyMessage(event.replyToken, {
                 type: 'text',
@@ -66,7 +67,10 @@ const handleEvent = (event) => {
 app.post('/webhook', line.middleware(config), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
-        .then((result) => res.json(result));
+        .then((result) => res.json(result))
+        .catch(err=>{console.error({
+            errorRoutesWebHook: err,
+        })});
 });
 
 // const port = process.env.PORT || 8080;
