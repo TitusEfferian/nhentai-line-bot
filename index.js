@@ -22,7 +22,6 @@ const handleEvent = (event) => {
      * handle all text case
      */
     if (event.message.type === 'text') {
-        console.log(event.message.text);
         if (event.message.text.toLowerCase().startsWith('!usage')) {
             return client.replyMessage(event.replyToken, {
                 type: 'text',
