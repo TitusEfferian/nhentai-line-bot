@@ -43,13 +43,17 @@ const handleEvent = (event) => {
             });
         }
         if (event.message.text.toLowerCase().startsWith('!top')) {
-            const callBackReturn = (topPlayerData) => client.replyMessage(event.replyToken, {
+            const callBackReturnWithData = (topPlayerData) => client.replyMessage(event.replyToken, {
                 type: 'text',
                 text: 'top efferian moment: \n' + topPlayerData.map((x, y) => {
-                    return (y + 1) + '. ' + x.username + ': ' + x.efferian_points + '\n';
+                    return (y + 1) + '. ' + x.username + ': ' + x.efferian_points + ' points\n';
                 }),
             });
-            handleGetTopPlayer(callBackReturn);
+            const callBackReturnNoData = () => client.replyMessage(event.replyToken, {
+                type: 'text',
+                text: 'belum ada data di leaderboard',
+            });
+            handleGetTopPlayer(callBackReturn, callBackReturnNoData);
         }
     }
 
