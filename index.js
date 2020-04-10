@@ -45,7 +45,9 @@ const handleEvent = (event) => {
         if (event.message.text.toLowerCase().startsWith('!top')) {
             const callBackReturn = (topPlayerData) => client.replyMessage(event.replyToken, {
                 type: 'text',
-                text: JSON.stringify(topPlayerData),
+                text: 'top efferian moment: \n' + topPlayerData.map((x, y) => {
+                    return (y + 1) + '. ' + x.username + ': ' + x.efferian_points + '\n',
+                }),
             });
             handleGetTopPlayer(callBackReturn);
         }
