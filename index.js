@@ -53,7 +53,11 @@ const handleEvent = (event) => {
                 type: 'text',
                 text: 'belum ada data di leaderboard',
             });
-            handleGetTopPlayer(callBackReturnWithData, callBackReturnNoData);
+            const callBackReturnCatchError = (err) => client.replyMessage(event.replyToken, {
+                type: 'text',
+                text: 'error server: ' + JSON.stringify(err),
+            });
+            handleGetTopPlayer(callBackReturnWithData, callBackReturnNoData, callBackReturnCatchError);
         }
     }
 
