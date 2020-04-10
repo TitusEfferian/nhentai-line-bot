@@ -21,7 +21,8 @@ const handleEvent = (event) => {
      * handle all text case
      */
     if (event.message.type === 'text') {
-        if(event.message.text.toLowerCase().startsWith('!usage')) {
+        console.log(event.message.text);
+        if (event.message.text.toLowerCase().startsWith('!usage')) {
             return client.replyMessage(event.replyToken, {
                 type: 'text',
                 text: `Jika menemukan orang yang efferian moment, gunakan command berikut:
@@ -37,7 +38,7 @@ const handleEvent = (event) => {
             });
             return client.replyMessage(event.replyToken, {
                 type: 'text',
-                text: 'efferian moment detected, '+userEfferianMoment+' point + 1',
+                text: 'efferian moment detected, ' + userEfferianMoment + ' point + 1',
             });
         }
     }
