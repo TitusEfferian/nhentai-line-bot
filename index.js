@@ -47,7 +47,7 @@ const handleEvent = (event) => {
                 type: 'text',
                 text: 'top efferian moment: \n' + topPlayerData.map((x, y) => {
                     return (y + 1) + '. ' + x.username + ': ' + x.efferian_points + '\n',
-                }),
+                });
             });
             handleGetTopPlayer(callBackReturn);
         }
