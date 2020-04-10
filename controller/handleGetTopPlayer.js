@@ -3,6 +3,7 @@ const db = require('../DatabaseConnector');
 const handleGetTopPlayer = (resultCallbackWithData, resultCallbackWithNoData) => {
     const docRef = db.collection('TopEfferianMoment').orderBy("efferian_points", "desc").limit(10);
     const getUserData = docRef.get().then(snapshot => {
+        console.log(snapshot);
         if (snapshot.length === 0) {
             resultCallbackWithNoData();
         } else {
