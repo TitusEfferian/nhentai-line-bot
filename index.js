@@ -53,7 +53,7 @@ const handleEvent = (event) => {
                 type: 'text',
                 text: 'belum ada data di leaderboard',
             });
-            handleGetTopPlayer(callBackReturn, callBackReturnNoData);
+            handleGetTopPlayer(callBackReturnWithData, callBackReturnNoData);
         }
     }
 
