@@ -1,22 +1,14 @@
-// const db = require('../DatabaseConnector');
+const db = require('../DatabaseConnector');
 
-// const handleGetTopPlayer = ({ username }) => {
-//     const docRef = db.collection('TopEfferianMoment').doc(username);
-//     const getUserData = docRef.get().then(doc => {
-//         if (!doc.exists) {
-//             const setAda = docRef.set({
-//                 username: username,
-//                 efferian_points: 1,
-//             });
-//         } else {
-//             const setAda = docRef.set({
-//                 username: username,
-//                 efferian_points: doc.data().efferian_points + 1,
-//             });
-//         }
-//     }).catch(err => {
-//         console.error(err);
-//     });
-// };
+const handleGetTopPlayer = (resultCallback) => {
+    const docRef = db.collection('TopEfferianMoment').orderBy("efferian_points", "desc").limit(10);
+    const getUserData = docRef.get().then(doc => {
+        if (!doc.exists) {
+            resultCallback(doc.data());
+        }
+    }).catch(err => {
+        console.error(err);
+    });
+};
 
-// module.exports = handleGetTopPlayer;
+module.exports = handleGetTopPlayer;

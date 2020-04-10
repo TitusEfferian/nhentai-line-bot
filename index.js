@@ -2,6 +2,7 @@ const express = require('express');
 const line = require('@line/bot-sdk');
 
 const handleCountEfferianPoints = require('./controller/handleCountEfferianPoints');
+const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -40,6 +41,13 @@ const handleEvent = (event) => {
                 type: 'text',
                 text: 'efferian moment detected, ' + userEfferianMoment + ' point + 1',
             });
+        }
+        if (event.message.text.toLowerCase().startsWith('!top')) {
+            const callBackReturn = (topPlayerData) => client.replyMessage(event.replyToken, {
+                type: 'text',
+                text: JSON.stringify(topPlayerData),
+            });
+            handleGetTopPlayer(callBackReturn);
         }
     }
 
