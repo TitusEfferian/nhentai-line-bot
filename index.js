@@ -26,9 +26,7 @@ const handleEvent = (event) => {
         if (event.message.text.toLowerCase().startsWith('!usage')) {
             return client.replyMessage(event.replyToken, {
                 type: 'text',
-                text: `Jika menemukan orang yang efferian moment, gunakan command berikut:
-                !efferian [@nama orang]
-                contoh: !efferian @vergi-lunas
+                text: `Jika menemukan orang yang efferian moment, gunakan command berikut:\n!efferian [@nama orang]\ncontoh: !efferian @vergi-lunas
                 `,
             });
         }
@@ -45,8 +43,8 @@ const handleEvent = (event) => {
         if (event.message.text.toLowerCase().startsWith('!top')) {
             const callBackReturnWithData = (topPlayerData) => client.replyMessage(event.replyToken, {
                 type: 'text',
-                text: 'top efferian moment: \n' + topPlayerData.map((x, y) => {
-                    return (y + 1) + '. ' + x.username + ': ' + x.efferian_points + ' points\n';
+                text: 'top efferian moment: ' + topPlayerData.map((x, y) => {
+                    return '\n' + (y + 1) + '. ' + x.username + ': ' + x.efferian_points + ' points';
                 }),
             });
             const callBackReturnNoData = () => client.replyMessage(event.replyToken, {
@@ -68,9 +66,11 @@ app.post('/webhook', line.middleware(config), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
         .then((result) => res.json(result))
-        .catch(err=>{console.error({
-            errorRoutesWebHook: err,
-        })});
+        .catch(err => {
+            console.error({
+                errorRoutesWebHook: err,
+            })
+        });
 });
 
 // const port = process.env.PORT || 8080;
