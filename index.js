@@ -69,7 +69,9 @@ app.post('/webhook', line.middleware(config), (req, res) => {
         .then((result) => res.json(result));
 });
 
-const port = process.env.PORT || 8080;
-app.listen(port, () => {
-    console.log('webhook on port', port);
-});
+// const port = process.env.PORT || 8080;
+// app.listen(port, () => {
+//     console.log('webhook on port', port);
+// });
+
+module.exports = app;
