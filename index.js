@@ -1,7 +1,7 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
 
-const handleAddToDatabase = require('./controller/handleAddToDatabase');
+const handleCountEfferianPoints = require('./controller/handleCountEfferianPoints');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -21,20 +21,25 @@ const handleEvent = (event) => {
      * handle all text case
      */
     if (event.message.type === 'text') {
-        if (event.message.text.toLowerCase().startsWith('efferian')) {
+        if(event.message.text.toLowerCase().startsWith('!usage')) {
             return client.replyMessage(event.replyToken, {
                 type: 'text',
-                text: 'efferian detected, database counter + 1',
+                text: `Jika menemukan orang yang efferian moment, gunakan command berikut:
+                !efferian [@nama orang]
+                contoh: !efferian @vergi-lunas
+                `,
             });
         }
-        if(event.message.text.toLowerCase().includes('/add')) {
-            const dataToDatabase = event.message.text.toLowerCase().split('/add ')[1];
-            handleAddToDatabase(dataToDatabase);
+        if (event.message.text.toLowerCase().startsWith('!efferian')) {
+            const userEfferianMoment = event.message.text.toLowerCase().split('!efferian ')[1].split('@')[1];
+            handleCountEfferianPoints({
+                username: userEfferianMoment,
+            });
             return client.replyMessage(event.replyToken, {
                 type: 'text',
-                text: 'success add to database',
+                text: 'efferian moment detected, '+userEfferianMoment+' point + 1',
             });
-        } 
+        }
     }
 
     return Promise.resolve(null);
