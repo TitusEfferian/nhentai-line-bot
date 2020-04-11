@@ -1,5 +1,6 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
+const fetch = require('isomorphic-unfetch');
 
 const handleCountEfferianPoints = require('./controller/handleCountEfferianPoints');
 const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
@@ -58,42 +59,33 @@ const handleEvent = (event) => {
             handleGetTopPlayer(callBackReturnWithData, callBackReturnNoData, callBackReturnCatchError);
         }
         if (event.message.text.toLowerCase().startsWith('g/')) {
-            const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
-            return client.replyMessage(event.replyToken,
-                {
-                    "type": "template",
-                    "altText": "nhentai g/"+nhentaiCode+" test",
-                    "template": {
-                        "type": "image_carousel",
-                        "columns": [
-                            {
-                                "imageUrl": "https://cult.fajar.co/"+nhentaiCode+"/1",
-                                "action": {
-                                    "type": "uri",
-                                    "label": "cover",
-                                    "uri": "https://cult.fajar.co/"+nhentaiCode+"/1"
-                                }
-                            },
-                            {
-                                "imageUrl": "https://cult.fajar.co/"+nhentaiCode+"/2",
-                                "action": {
-                                    "type": "uri",
-                                    "label": "1",
-                                    "uri": "https://cult.fajar.co/"+nhentaiCode+"/2"
-                                }
-                            },
-                            {
-                                "imageUrl": "https://cult.fajar.co/"+nhentaiCode+"/3",
-                                "action": {
-                                    "type": "uri",
-                                    "label": "2",
-                                    "uri": "https://cult.fajar.co/"+nhentaiCode+"/3"
-                                }
-                            },
-                        ]
-                    }
+            (async () => {
+                const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
+                const arrayOfColumns = [];
+                const resultFetchBeforeParse= await fetch('https://asia-east2-fleet-range-273715.cloudfunctions.net/nhentai-crawler?nhentaiId='+nhentaiCode);
+                const resultFetch = await resultFetchBeforeParse.json();
+                const totalPage = resultFetch.arrayOfImage.length;
+                for (let a = 1; a <= totalPage; a++) {
+                    arrayOfColumns.push({
+                        "imageUrl": "https://cult.fajar.co/" + nhentaiCode + "/" + a,
+                        "action": {
+                            "type": "uri",
+                            "label": a,
+                            "uri": "https://cult.fajar.co/" + nhentaiCode + "/" + a,
+                        }
+                    });
                 }
-            );
+                return client.replyMessage(event.replyToken,
+                    {
+                        "type": "template",
+                        "altText": "nhentai g/" + nhentaiCode,
+                        "template": {
+                            "type": "image_carousel",
+                            "columns": arrayOfColumns.filter((x, y) => y >= 0 && y <= 9),
+                        }
+                    }
+                );
+            })();
         }
     }
     return Promise.resolve(null);
