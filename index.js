@@ -57,8 +57,100 @@ const handleEvent = (event) => {
             });
             handleGetTopPlayer(callBackReturnWithData, callBackReturnNoData, callBackReturnCatchError);
         }
+        if (event.message.text.toLowerCase().startsWith('g/')) {
+            return client.replyMessage(event.replyToken,
+                {
+                    "type": "template",
+                    "altText": "nhentai g/12345 test",
+                    "template": {
+                        "type": "image_carousel",
+                        "columns": [
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/1t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/1.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/2t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/2.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/3t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/3.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/4t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/4.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/5t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/5.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/6t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/6.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/7t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/7.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/8t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/8.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/9t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/9.jpg"
+                                }
+                            },
+                            {
+                                "imageUrl": "https://t.nhentai.net/galleries/1609198/10t.jpg",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "cover",
+                                    "uri": "https://i.nhentai.net/galleries/1609198/10.jpg"
+                                }
+                            },
+                        ]
+                    }
+                }
+            );
+        }
     }
-
     return Promise.resolve(null);
 }
 
