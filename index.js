@@ -69,6 +69,12 @@ const handleEvent = (event) => {
                 const resultFetchBeforeParse = await fetch(nhentaiCrawler + '?nhentaiId=' + nhentaiCode);
                 const resultFetch = await resultFetchBeforeParse.json();
                 const totalPage = resultFetch.arrayOfImage.length;
+                if (totalPage === 0) {
+                    return client.replyMessage(event.replyToken, {
+                        type: 'text',
+                        text: nhentaiCode + ' not found',
+                    })
+                }
                 const numberOfReplies = () => {
                     if (totalPage > 50) {
                         return 5;
@@ -77,7 +83,7 @@ const handleEvent = (event) => {
                 };
                 for (let a = 1; a <= totalPage; a++) {
                     arrayOfColumns.push({
-                        "imageUrl": nhentaiByPass+"?nhenId=" + nhentaiCode + "&nhenPage=" + a,
+                        "imageUrl": nhentaiByPass + "?nhenId=" + nhentaiCode + "&nhenPage=" + a,
                         "action": {
                             "type": "uri",
                             "label": a,
@@ -108,16 +114,6 @@ const handleEvent = (event) => {
                         }
                     })
                 }
-                // return client.replyMessage(event.replyToken,
-                //     {
-                //         "type": "template",
-                //         "altText": "nhentai g/" + nhentaiCode,
-                //         "template": {
-                //             "type": "image_carousel",
-                //             "columns": arrayOfColumns.filter((x, y) => y >= 0 && y <= 9),
-                //         }
-                //     }
-                // );
                 return client.replyMessage(event.replyToken, arrayOfReply);
             })();
         }
