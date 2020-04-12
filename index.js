@@ -12,6 +12,7 @@ const config = {
 
 const nhentaiCrawler = process.env.NHENTAI_CRAWLER.toString();
 const nhentaiByPass = process.env.NHENTAI_BYPASS.toString();
+const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
 
 const app = express();
 
@@ -89,7 +90,11 @@ const handleEvent = (event) => {
                         "action": {
                             "type": "uri",
                             "label": a,
-                            "uri": "https://cult.fajar.co/" + nhentaiCode + "/" + a,
+                            /**
+                             * experiment performance load
+                             */
+                            // "uri": "https://cult.fajar.co/" + nhentaiCode + "/" + a,
+                            "uri": nhentaiByPassOriginal + "?bucketId="+arrayOfImage[0].bucket_id+"&nhenPage=" + a,
                         }
                     });
                 }
