@@ -10,6 +10,9 @@ const config = {
     channelSecret: process.env.CHANNEL_SECRET.toString(),
 };
 
+const nhentaiCrawler = process.env.NHENTAI_CRAWLER.toString();
+const nhentaiByPass = process.env.NHENTAI_BYPASS.toString();
+
 const app = express();
 
 const client = new line.Client(config);
@@ -62,12 +65,19 @@ const handleEvent = (event) => {
             (async () => {
                 const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
                 const arrayOfColumns = [];
-                const resultFetchBeforeParse= await fetch('https://asia-east2-fleet-range-273715.cloudfunctions.net/nhentai-crawler?nhentaiId='+nhentaiCode);
+                const arrayOfReply = [];
+                const resultFetchBeforeParse = await fetch(nhentaiCrawler + '?nhentaiId=' + nhentaiCode);
                 const resultFetch = await resultFetchBeforeParse.json();
                 const totalPage = resultFetch.arrayOfImage.length;
+                const numberOfReplies = () => {
+                    if (totalPage > 50) {
+                        return 5;
+                    }
+                    return totalPage % 10 === 0 ? totalPage / 10 : Math.floor(totalPage / 10) + 1;
+                };
                 for (let a = 1; a <= totalPage; a++) {
                     arrayOfColumns.push({
-                        "imageUrl": "https://cult.fajar.co/" + nhentaiCode + "/" + a,
+                        "imageUrl": nhentaiByPass+"?nhenId=" + nhentaiCode + "&nhenPage=" + a,
                         "action": {
                             "type": "uri",
                             "label": a,
@@ -75,16 +85,40 @@ const handleEvent = (event) => {
                         }
                     });
                 }
-                return client.replyMessage(event.replyToken,
-                    {
+                for (let a = 1; a <= numberOfReplies(); a++) {
+                    arrayOfReply.push({
                         "type": "template",
                         "altText": "nhentai g/" + nhentaiCode,
                         "template": {
                             "type": "image_carousel",
-                            "columns": arrayOfColumns.filter((x, y) => y >= 0 && y <= 9),
+                            "columns": arrayOfColumns.filter((x, y) => {
+                                if (a === 1) {
+                                    return y >= 0 && y <= 9;
+                                } else if (a === 2) {
+                                    return y >= 10 && y <= 19;
+                                } else if (a === 3) {
+                                    return y >= 20 && y <= 29;
+                                } else if (a === 4) {
+                                    return y >= 30 && y <= 39;
+                                } else if (a === 5) {
+                                    return y >= 40 && y <= 49;
+                                }
+                                return;
+                            }),
                         }
-                    }
-                );
+                    })
+                }
+                // return client.replyMessage(event.replyToken,
+                //     {
+                //         "type": "template",
+                //         "altText": "nhentai g/" + nhentaiCode,
+                //         "template": {
+                //             "type": "image_carousel",
+                //             "columns": arrayOfColumns.filter((x, y) => y >= 0 && y <= 9),
+                //         }
+                //     }
+                // );
+                return client.replyMessage(event.replyToken, arrayOfReply);
             })();
         }
     }
