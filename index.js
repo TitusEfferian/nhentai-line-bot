@@ -4,7 +4,6 @@ const fetch = require('isomorphic-unfetch');
 
 const handleCountEfferianPoints = require('./controller/handleCountEfferianPoints');
 const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
-const handleNhenTrack = require('./controller/handleNhenTrack');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -70,7 +69,7 @@ const handleEvent = (event) => {
                 const resultFetchBeforeParse = await fetch(nhentaiCrawler + '?nhentaiId=' + nhentaiCode);
                 const resultFetch = await resultFetchBeforeParse.json();
                 const totalPage = resultFetch.arrayOfImage.length;
-                handleNhenTrack();
+
                 if (totalPage === 0) {
                     return client.replyMessage(event.replyToken, {
                         type: 'text',
