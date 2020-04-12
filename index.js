@@ -68,7 +68,8 @@ const handleEvent = (event) => {
                 const arrayOfReply = [];
                 const resultFetchBeforeParse = await fetch(nhentaiCrawler + '?nhentaiId=' + nhentaiCode);
                 const resultFetch = await resultFetchBeforeParse.json();
-                const totalPage = resultFetch.arrayOfImage.length;
+                const arrayOfImage = resultFetch.arrayOfImage;
+                const totalPage = arrayOfImage.length;
 
                 if (totalPage === 0) {
                     return client.replyMessage(event.replyToken, {
@@ -84,7 +85,7 @@ const handleEvent = (event) => {
                 };
                 for (let a = 1; a <= totalPage; a++) {
                     arrayOfColumns.push({
-                        "imageUrl": nhentaiByPass + "?nhenId=" + nhentaiCode + "&nhenPage=" + a,
+                        "imageUrl": nhentaiByPass + "?bucketId=" + arrayOfImage[0].bucket_id + "&nhenPage=" + a,
                         "action": {
                             "type": "uri",
                             "label": a,
