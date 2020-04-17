@@ -128,7 +128,7 @@ const handleEvent = (event) => {
             (async () => {
                 const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
                 await handleNhentaiSearch(searchKeywords, client, event.replyToken);
-            });
+            })();
         }
     }
     return Promise.resolve(null);
