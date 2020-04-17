@@ -28,7 +28,7 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                 "action": {
                     "type": "message",
                     "label": arrayOfResult[a - 1].nhentai_id,
-                    "text": arrayOfResult[a - 1].nhentai_id,
+                    "text": "",
                 }
             }
         )
