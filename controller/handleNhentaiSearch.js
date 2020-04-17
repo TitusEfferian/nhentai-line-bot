@@ -26,9 +26,10 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
             {
                 "imageUrl": nhentaiSearchBypass + "?url=" + arrayOfResult[a - 1].preview,
                 "action": {
-                    "type": "message",
+                    "type": "postback",
                     "label": arrayOfResult[a - 1].nhentai_id,
-                    "text": "",
+                    "data": "action=buy&itemid=111",
+                    "text": "Buy"
                 }
             }
         )
