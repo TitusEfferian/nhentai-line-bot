@@ -9,10 +9,10 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
     const arrayOfResult = searchResult.arrayOfResult;
     const arrayOfColumns = [];
     for (let a = 1; a < arrayOfResult.length > 10 ? 10 : arrayOfResult.length; a++) {
-        const label = arrayOfResult[a - 1].nhentai_id;
+        const label = arrayOfResult[a].nhentai_id;
         arrayOfColumns.push(
             {
-                "imageUrl": nhentaiSearchBypass + "?url=" + arrayOfResult[a - 1].preview,
+                "imageUrl": nhentaiSearchBypass + "?url=" + arrayOfResult[a].preview,
                 "action": {
                     "type": "uri",
                     "label": label,
