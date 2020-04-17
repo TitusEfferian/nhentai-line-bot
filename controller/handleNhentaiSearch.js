@@ -28,7 +28,7 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                 "action": {
                     "type": "postback",
                     "label": arrayOfResult[a - 1].nhentai_id,
-                    "data": "",
+                    "data": "bypass",
                 }
             }
         )
