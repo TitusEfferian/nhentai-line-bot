@@ -26,9 +26,9 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
             {
                 "imageUrl": nhentaiSearchBypass + "?url=" + arrayOfResult[a - 1].preview,
                 "action": {
-                    "type": "uri",
+                    "type": "message",
                     "label": arrayOfResult[a - 1].nhentai_id,
-                    "uri": "https://google.com",
+                    "text": arrayOfResult[a - 1].nhentai_id,
                 }
             }
         )
