@@ -28,8 +28,7 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                 "action": {
                     "type": "postback",
                     "label": arrayOfResult[a - 1].nhentai_id,
-                    "data": "action=buy&itemid=111",
-                    "text": "Buy"
+                    "data": "",
                 }
             }
         )
