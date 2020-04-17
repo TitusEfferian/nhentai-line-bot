@@ -8,7 +8,13 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
     const searchResult = await fetchSearchCrawler.json();
     const arrayOfResult = searchResult.arrayOfResult;
     const arrayOfColumns = [];
-    for (let a = 1; a <= arrayOfResult.length <= 10 ? arrayOfResult.length : 10; a++) {
+    const handleValidateIncrement = () => {
+        if (arrayOfResult.length > 10) {
+            return 10;
+        }
+        return arrayOfResult.length;
+    }
+    for (let a = 1; a <= handleValidateIncrement(); a++) {
         arrayOfColumns.push(
             {
                 "imageUrl": nhentaiSearchBypass + "?url=" + arrayOfResult[a - 1].preview,
