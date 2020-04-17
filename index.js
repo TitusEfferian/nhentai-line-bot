@@ -124,6 +124,12 @@ const handleEvent = (event) => {
                 return client.replyMessage(event.replyToken, arrayOfReply);
             })();
         }
+        if(event.message.text.toLowerCase().startsWith('nhentai')) {
+            (async () => {
+                const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
+                await handleNhentaiSearch(searchKeywords, client, event.replyToken);
+            });
+        }
     }
     return Promise.resolve(null);
 }
