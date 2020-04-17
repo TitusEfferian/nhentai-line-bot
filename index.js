@@ -4,6 +4,7 @@ const fetch = require('isomorphic-unfetch');
 
 const handleCountEfferianPoints = require('./controller/handleCountEfferianPoints');
 const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
+const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
