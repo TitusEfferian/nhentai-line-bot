@@ -133,7 +133,7 @@ const handleEvent = (event) => {
             })();
         }
         if(event.message.text.toLowerCase().startsWith('!testdb')) {
-            handleTestDb();
+            handleTestDb(client, event.replyToken);
         }
     }
     return Promise.resolve(null);
