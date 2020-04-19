@@ -2,8 +2,8 @@ const db = require('../DatabaseConnector');
 
 
 const handleNhentaiSearch = (client, replyToken, newData) => {
-    const docRef = db.collection('TestAsync').doc('test data');
-    docRef.update({
+    const docRef = db.collection('TestAsync');
+    docRef.add({
         nama: newData,
     })
     return client.replyMessage(replyToken, {
