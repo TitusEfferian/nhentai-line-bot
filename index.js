@@ -5,6 +5,7 @@ const fetch = require('isomorphic-unfetch');
 const handleCountEfferianPoints = require('./controller/handleCountEfferianPoints');
 const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
 const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
+const handleTestDb = require('./controller/handleTestDb');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -130,6 +131,9 @@ const handleEvent = (event) => {
                 const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
                 await handleNhentaiSearch(searchKeywords, client, event.replyToken);
             })();
+        }
+        if(event.message.text.toLowerCase().startsWith('!testdb')) {
+            handleTestDb();
         }
     }
     return Promise.resolve(null);
