@@ -32,7 +32,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     return client.replyMessage(replyToken, {
         type: 'text',
         text: `info for this code ` + searchParams + `\n\n
-        Title : `+ titleData.map(x=>x.english).toString() +`\n
+        Title : `+ 'lagi di debug alma' +`\n
         Language : `+ language.map(x=>x.name).toString() +`\n
         Artist : `+ artist.map(x=>x.name).toString() +`\n
         Parody : `+ parody.map(x=>x.name).toString() +`\n
