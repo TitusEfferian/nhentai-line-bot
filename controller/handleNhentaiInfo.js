@@ -10,11 +10,11 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
 
     const titleData = resultData.title;
 
-    const tags = tagsData.filter(x=>x.type === 'tag');
-    const language = tagsData.filter(x=>x.type === 'language');
-    const artist = tagsData.filter(x=>x.type === 'artist');
-    const parody = tagsData.filter(x=>x.type === 'parody');
-    const character = tagsData.filter(x=>x.type === 'character');
+    const tags = tagsData.filter(x=>x.type === 'tag') || [];
+    const language = tagsData.filter(x=>x.type === 'language') || []; 
+    const artist = tagsData.filter(x=>x.type === 'artist') || [];
+    const parody = tagsData.filter(x=>x.type === 'parody') || [];
+    const character = tagsData.filter(x=>x.type === 'character') || [];
 
     if (resultData.error === true) {
         return client.replyMessage(replyToken, {
