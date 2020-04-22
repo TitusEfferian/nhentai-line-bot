@@ -35,7 +35,7 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
     }
     return client.replyMessage(replyToken, {
         "type": "template",
-        "altText": "nhentai resulte",
+        "altText": "nhentai results",
         "template": {
             "type": "image_carousel",
             "columns": arrayOfColumns,

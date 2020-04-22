@@ -36,6 +36,18 @@ const handleEvent = (event) => {
                 text: `Jika menemukan orang yang efferian moment, gunakan command berikut:\n!efferian [@nama orang]\ncontoh: !efferian @vergi-lunas
                 `,
             });
+        }if (event.message.text.toLowerCase().startsWith('!help')) {
+            return client.replyMessage(event.replyToken, {
+                type: 'text',
+                text: `Command untuk nhentai : 
+                \n  1. g/{hentai code} 
+                \n mengambil galeri nhentai dari kode yang diinginkan, contoh g/177013
+                \n  2. !nhentai {tags}
+                \n mencari hentai berdasarkan tags, bisa cari pakai banyak tags, contoh !nhentai ahegao shindoL "mind break"
+                \n  3. !nhentaiinfo {hentai code}
+                \n mengambil informasi tags dari hentaicode, contoh !nhentaiinfo {177013}
+                `,
+            });
         }
         if (event.message.text.toLowerCase().startsWith('!efferian')) {
             const userEfferianMoment = event.message.text.toLowerCase().split('!efferian ')[1].split('@')[1];
@@ -126,10 +138,16 @@ const handleEvent = (event) => {
                 return client.replyMessage(event.replyToken, arrayOfReply);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('nhentai')) {
+        if(event.message.text.toLowerCase().startsWith('!nhentai')) {
             (async () => {
-                const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
+                const searchKeywords = event.message.text.toLowerCase().split('!nhentai ')[1];
                 await handleNhentaiSearch(searchKeywords, client, event.replyToken);
+            })();
+        }
+        if(event.message.text.toLowerCase().startsWith('!nhentaiinfo')) {
+            (async () => {
+                const nhentaiCode = event.message.text.toLowerCase().split('!nhentaiinfo ')[1];
+                await handleNhentaiInfo(nhentaiCode,client,event.replyToken);
             })();
         }
         if(event.message.text.toLowerCase().startsWith('!testdb')) {
