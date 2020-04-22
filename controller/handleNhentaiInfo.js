@@ -7,6 +7,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const infoResult = await fetchGethInfo.json();
     const resultData = infoResult.data;
     const tagsData = resultData.tags;
+
     const titleData = resultData.title;
 
     const tags = tagsData.filter(x=>x.type === 'tag');
@@ -27,6 +28,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
         });
     }
     
+
     return client.replyMessage(replyToken, {
         type: 'text',
         text: `info for this code ` + searchParams + `\n\n
