@@ -14,12 +14,12 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const parody = [];
     const character = [];
 
-    if (resultData.error === "true") {
+    if (resultData.error === true) {
         return client.replyMessage(replyToken, {
             "type": "text",
             "text": "no info found for this code " + searhParams,
         });
-    }else if(infoResult.success === "false"){
+    }else if(infoResult.success === false){
         return client.replyMessage(replyToken, {
             "type": "text",
             "text": "no info found for this code " + searhParams,
