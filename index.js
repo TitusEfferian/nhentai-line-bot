@@ -5,6 +5,7 @@ const fetch = require('isomorphic-unfetch');
 const handleCountEfferianPoints = require('./controller/handleCountEfferianPoints');
 const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
 const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
+const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
 
 const config = {
