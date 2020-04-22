@@ -7,12 +7,13 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const infoResult = await fetchGethInfo.json();
     const resultData = infoResult.data;
     const tagsData = resultData.tags;
+    const titleData = resultData.title;
 
-    const tags = [];
-    const language = [];
-    const artist = [];
-    const parody = [];
-    const character = [];
+    const tags = tagsData.filter(x=>x.type === 'tag');
+    const language = tagsData.filter(x=>x.type === 'language');
+    const artist = tagsData.filter(x=>x.type === 'artist');
+    const parody = tagsData.filter(x=>x.type === 'parody');
+    const character = tagsData.filter(x=>x.type === 'character');
 
     if (resultData.error === true) {
         return client.replyMessage(replyToken, {
@@ -26,33 +27,15 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
         });
     }
     
-    for (let a = 1; a <= tagsData.length; a++) {
-        if(tagsData[a].type === "tag"){
-            tags.push(tagsData[a].name)
-        }
-        if(tagsData[a].type === "language"){
-            language.push(tagsData[a].name)
-        }
-        if(tagsData[a].type === "artist"){
-            artist.push(tagsData[a].name)
-        }
-        if(tagsData[a].type === "parody"){
-            parody.push(tagsData[a].name)
-        }
-        if(tagsData[a].type === "character"){
-            character.push(tagsData[a].name)
-        }
-    }
-
     return client.replyMessage(replyToken, {
         type: 'text',
         text: `info for this code ` + searchParams + `\n\n
-        Title : `+ tagsData.title.english +`\n
-        Language : `+ language.toString() +`\n
-        Artist : `+ artist.toString() +`\n
-        Parody : `+ parody.toString() +`\n
-        Character : `+ character.toString() +`\n
-        Tags : `+ tag.toString() +`\n
+        Title : `+ titleData.map(x=>x.english).toString() +`\n
+        Language : `+ language.map(x=>x.name).toString() +`\n
+        Artist : `+ artist.map(x=>x.name).toString() +`\n
+        Parody : `+ parody.map(x=>x.name).toString() +`\n
+        Character : `+ character.map(x=>x.name).toString() +`\n
+        Tags : `+ tags.map(x=>x.name).toString() +`\n
         `
     });
 };
