@@ -2,8 +2,8 @@ const fetch = require('isomorphic-unfetch');
 
 const nhentaiGetInfo = process.env.NHENTAI_SEARCH_INFO.toString();
 
-const handleNhentaiSearch = async (searchParams, client, replyToken) => {
-    const fetchGethInfo = await fetch(nhentaiGetInfo + '?search=' + searchParams);
+const handleNhentaiInfo = async (searchParams, client, replyToken) => {
+    const fetchGethInfo = await fetch(nhentaiGetInfo + '?id=' + searchParams);
     const infoResult = await fetchGethInfo.json();
     const resultData = infoResult.data;
     const tagsData = resultData.tags;
@@ -15,6 +15,11 @@ const handleNhentaiSearch = async (searchParams, client, replyToken) => {
     const character = [];
 
     if (resultData.error === "true") {
+        return client.replyMessage(replyToken, {
+            "type": "text",
+            "text": "no info found for this code " + searhParams,
+        });
+    }else if(infoResult.success === "false"){
         return client.replyMessage(replyToken, {
             "type": "text",
             "text": "no info found for this code " + searhParams,
@@ -52,4 +57,4 @@ const handleNhentaiSearch = async (searchParams, client, replyToken) => {
     });
 };
 
-module.exports = handleNhentaiSearch;
+module.exports = handleNhentaiInfo;
