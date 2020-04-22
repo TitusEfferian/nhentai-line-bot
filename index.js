@@ -42,7 +42,7 @@ const handleEvent = (event) => {
                 text: `Command untuk nhentai : 
                 \n  1. g/{hentai code} 
                 \n mengambil galeri nhentai dari kode yang diinginkan, contoh g/177013
-                \n  2. !nhentai {tags}
+                \n  2. nhentai {tags}
                 \n mencari hentai berdasarkan tags, bisa cari pakai banyak tags, contoh !nhentai ahegao shindoL "mind break"
                 \n  3. !nhentaiinfo {hentai code}
                 \n mengambil informasi tags dari hentaicode, contoh !nhentaiinfo {177013}
@@ -138,9 +138,9 @@ const handleEvent = (event) => {
                 return client.replyMessage(event.replyToken, arrayOfReply);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('!nhentai')) {
+        if(event.message.text.toLowerCase().startsWith('nhentai')) {
             (async () => {
-                const searchKeywords = event.message.text.toLowerCase().split('!nhentai ')[1];
+                const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
                 await handleNhentaiSearch(searchKeywords, client, event.replyToken);
             })();
         }
