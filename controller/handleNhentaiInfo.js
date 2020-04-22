@@ -8,6 +8,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const resultData = infoResult.data;
     const tagsData = resultData.tags;
 
+
     const titleData = resultData.filter(x=>x.type === 'title');
 
     const tags = tagsData.filter(x=>x.type === 'tag');
@@ -15,6 +16,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const artist = tagsData.filter(x=>x.type === 'artist');
     const parody = tagsData.filter(x=>x.type === 'parody');
     const character = tagsData.filter(x=>x.type === 'character');
+
 
     if (resultData.error === true) {
         return client.replyMessage(replyToken, {
@@ -38,6 +40,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
         `Parody : `+ parody.map(x=>x.name).toString() +`\n`+
         `Character : `+ character.map(x=>x.name).toString() +`\n`+
         `Tags : `+ tags.map(x=>x.name).toString() +`\n`
+
     });
 };
 
