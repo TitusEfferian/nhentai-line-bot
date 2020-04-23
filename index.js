@@ -157,10 +157,16 @@ const handleEvent = (event) => {
             handleTestDb(client, event.replyToken, dataUpdate);
         }
         if(event.message.text.toLowerCase().startsWith('!hours')) {
-            const isFromGroup = event.message.source.type === 'group';
+            const isFromGroup = event.source.type === 'group';
+            if(isFromGroup) {
+                return client.replyMessage(event.replyToken,{
+                    "type": "text",
+                    "text": 'demi menghormati bulan suci ramadhan, bot nhentai hanya akan menerima request diluar jam puasa'
+                });
+            }
             return client.replyMessage(event.replyToken,{
                 "type": "text",
-                "text": isFromGroup.toString(),
+                "text": 'pass'
             });
         }
     }
