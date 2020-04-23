@@ -16,7 +16,6 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const parody = tagsData.filter(x=>x.type === 'parody');
     const character = tagsData.filter(x=>x.type === 'character');
 
-
     if (infoResult.success === false) {
         return client.replyMessage(replyToken, {
             "type": "text",
@@ -41,7 +40,6 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     
         });
     }
-
 };
 
 module.exports = handleNhentaiInfo;
