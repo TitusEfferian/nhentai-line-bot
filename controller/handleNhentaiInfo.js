@@ -17,30 +17,29 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const character = tagsData.filter(x=>x.type === 'character');
 
 
-    if (resultData.error === true) {
+    if (infoResult.success === false) {
         return client.replyMessage(replyToken, {
             "type": "text",
             "text": "no info found for this code " + searhParams,
         });
-    }else if(infoResult.success === false){
+    }else if(resultData.error === true){
         return client.replyMessage(replyToken, {
             "type": "text",
             "text": "no info found for this code " + searhParams,
+        });
+    }else{
+        return client.replyMessage(replyToken, {
+            type: 'text',
+            text: `info for this code ` + searchParams + `\n`+
+            `Title : `+ titleData.english +`\n`+
+            `Language : `+ language.map(x=>x.name).toString() +`\n`+
+            `Artist : `+ artist.map(x=>x.name).toString() +`\n`+
+            `Parody : `+ parody.map(x=>x.name).toString() +`\n`+
+            `Character : `+ character.map(x=>x.name).toString() +`\n`+
+            `Tags : `+ tags.map(x=>x.name).toString() +`\n`
+    
         });
     }
-    
-
-    return client.replyMessage(replyToken, {
-        type: 'text',
-        text: `info for this code ` + searchParams + `\n`+
-        `Title : `+ titleData.english +`\n`+
-        `Language : `+ language.map(x=>x.name).toString() +`\n`+
-        `Artist : `+ artist.map(x=>x.name).toString() +`\n`+
-        `Parody : `+ parody.map(x=>x.name).toString() +`\n`+
-        `Character : `+ character.map(x=>x.name).toString() +`\n`+
-        `Tags : `+ tags.map(x=>x.name).toString() +`\n`
-
-    });
 };
 
 module.exports = handleNhentaiInfo;
