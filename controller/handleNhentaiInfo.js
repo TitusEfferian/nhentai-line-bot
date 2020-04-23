@@ -16,19 +16,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const parody = tagsData.filter(x=>x.type === 'parody');
     const character = tagsData.filter(x=>x.type === 'character');
 
-
-    if (infoResult.success === false) {
-        return client.replyMessage(replyToken, {
-            "type": "text",
-            "text": "no info found for this code " + searhParams,
-        });
-
-    }else if(resultData.error === true){
-        return client.replyMessage(replyToken, {
-            "type": "text",
-            "text": "no info found for this code " + searhParams,
-        });
-    }else{
+    if(infoResult.success === true ){
         return client.replyMessage(replyToken, {
             type: 'text',
             text: `info for this code ` + searchParams + `\n`+
@@ -39,6 +27,18 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
             `Character : `+ character.map(x=>x.name).toString() +`\n`+
             `Tags : `+ tags.map(x=>x.name).toString() +`\n`
     
+        });
+        
+    }else if (infoResult.success === false || resultData.error === true) {
+        return client.replyMessage(replyToken, {
+            "type": "text",
+            "text": "no info found for this search term " + searhParams,
+        });
+
+    }else{
+        return client.replyMessage(replyToken, {
+            "type": "text",
+            "text": "Invalid input " + searhParams,
         });
     }
 
