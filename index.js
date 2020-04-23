@@ -45,9 +45,9 @@ const handleEvent = (event) => {
                 \n  1. g/{hentai code} 
                 \n mengambil galeri nhentai dari kode yang diinginkan, contoh g/177013
                 \n  2. nhentai {tags}
-                \n mencari hentai berdasarkan tags, bisa cari pakai banyak tags, contoh !nhentai ahegao shindoL "mind break"
+                \n mencari hentai berdasarkan tags, bisa cari pakai banyak tags, contoh: nhentai ahegao shindoL "mind break"
                 \n  3. !nhentaiinfo {hentai code}
-                \n mengambil informasi tags dari hentaicode, contoh !nhentaiinfo {177013}
+                \n mengambil informasi tags dari hentaicode, contoh !nhentaiinfo 177013
                 `,
             });
         }
@@ -80,6 +80,19 @@ const handleEvent = (event) => {
         }
         if (event.message.text.toLowerCase().startsWith('g/')) {
             (async () => {
+                /**
+                 * handle ramadhan block from group
+                 */
+                const isFromGroup = event.source.type === 'group';
+                if (isFromGroup && handleRamadhanTime()) {
+                    return client.replyMessage(event.replyToken, {
+                        "type": "text",
+                        "text": 'demi menghormati bulan suci ramadhan, bot nhentai akan menerima request diluar jam puasa hanya pada chat personal\n\ngroup chat akan aktif kembali ketika sudah berbuka puasa'
+                    });
+                }
+                /**
+                 * end of ramadhan block request
+                 */
                 const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
                 const arrayOfColumns = [];
                 const arrayOfReply = [];
@@ -155,19 +168,6 @@ const handleEvent = (event) => {
         if(event.message.text.toLowerCase().startsWith('!testdb')) {
             const dataUpdate = event.message.text.toLowerCase().split('!testdb ')[1];
             handleTestDb(client, event.replyToken, dataUpdate);
-        }
-        if(event.message.text.toLowerCase().startsWith('!hours')) {
-            const isFromGroup = event.source.type === 'group';
-            if(isFromGroup) {
-                return client.replyMessage(event.replyToken,{
-                    "type": "text",
-                    "text": 'demi menghormati bulan suci ramadhan, bot nhentai hanya akan menerima request diluar jam puasa'
-                });
-            }
-            return client.replyMessage(event.replyToken,{
-                "type": "text",
-                "text": 'pass'
-            });
         }
     }
     return Promise.resolve(null);
