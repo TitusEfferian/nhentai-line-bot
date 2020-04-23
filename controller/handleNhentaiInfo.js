@@ -22,6 +22,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
             "type": "text",
             "text": "no info found for this code " + searhParams,
         });
+
     }else if(resultData.error === true){
         return client.replyMessage(replyToken, {
             "type": "text",
@@ -40,6 +41,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     
         });
     }
+
 };
 
 module.exports = handleNhentaiInfo;
