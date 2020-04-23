@@ -7,6 +7,7 @@ const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
 const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
 const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
+const handleRamadhanTime = require('./controller/handleRamadhanTime');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -154,6 +155,12 @@ const handleEvent = (event) => {
         if(event.message.text.toLowerCase().startsWith('!testdb')) {
             const dataUpdate = event.message.text.toLowerCase().split('!testdb ')[1];
             handleTestDb(client, event.replyToken, dataUpdate);
+        }
+        if(event.message.text.toLowerCase().startsWith('!hours')) {
+            return client.replyMessage(event.replyToken,{
+                "type": "text",
+                "text": handleRamadhanTime().toString(),
+            });
         }
     }
     return Promise.resolve(null);
