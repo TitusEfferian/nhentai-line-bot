@@ -8,7 +8,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const resultData = infoResult.data;
     const tagsData = resultData.tags;
 
-    const titleData = resultData.filter(x=>x.type === 'title');
+    const titleData = resultData.title;
 
     const tags = tagsData.filter(x=>x.type === 'tag');
     const language = tagsData.filter(x=>x.type === 'language');
