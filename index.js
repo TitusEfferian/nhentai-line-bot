@@ -157,9 +157,10 @@ const handleEvent = (event) => {
             handleTestDb(client, event.replyToken, dataUpdate);
         }
         if(event.message.text.toLowerCase().startsWith('!hours')) {
+            const isFromGroup = event.message.source.type === 'group';
             return client.replyMessage(event.replyToken,{
                 "type": "text",
-                "text": handleRamadhanTime().toString(),
+                "text": isFromGroup.toString(),
             });
         }
     }
