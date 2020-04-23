@@ -16,8 +16,10 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const parody = tagsData.filter(x=>x.type === 'parody');
     const character = tagsData.filter(x=>x.type === 'character');
 
-    if(infoResult.success === true ){
+    
+	if(infoResult.success === true ){
         return client.replyMessage(replyToken, {
+
             type: 'text',
             text: `info for this code ` + searchParams + `\n`+
             `Title : `+ titleData.english +`\n`+
@@ -41,7 +43,6 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
             "text": "Invalid input " + searhParams,
         });
     }
-
 };
 
 module.exports = handleNhentaiInfo;
