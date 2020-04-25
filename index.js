@@ -9,6 +9,7 @@ const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
 const handleRamadhanTime = require('./controller/handleRamadhanTime');
 const handleHelpMessage = require('./controller/handleHelpMessage');
+const handleFlexMessage = require('./controller/handleFlexMessage');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -169,9 +170,8 @@ const handleEvent = (event) => {
                 await handleNhentaiInfo(nhentaiCode,client,event.replyToken);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('!testdb')) {
-            const dataUpdate = event.message.text.toLowerCase().split('!testdb ')[1];
-            handleTestDb(client, event.replyToken, dataUpdate);
+        if(event.message.text.toLowerCase().startsWith('dev flex')) {
+            handleFlexMessage(client, event.replyToken);
         }
     }
     return Promise.resolve(null);
