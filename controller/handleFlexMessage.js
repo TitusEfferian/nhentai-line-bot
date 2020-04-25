@@ -1,8 +1,6 @@
 const handleFlexMessage = (client, replyToken) => {
-    return client.replyMessage(replyToken, {
-        "type": "flex",
-        "alt": "test flex",
-        "contents": {
+    return client.replyMessage(replyToken,
+        {
             "type": "carousel",
             "contents": [
                 {
@@ -267,5 +265,5 @@ const handleFlexMessage = (client, replyToken) => {
                 }
             ]
         }
-    })
+    )
 }
