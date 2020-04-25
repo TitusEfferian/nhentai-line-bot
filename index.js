@@ -8,6 +8,7 @@ const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
 const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
 const handleRamadhanTime = require('./controller/handleRamadhanTime');
+const handleHelpMessage = require('./controller/handleHelpMessage');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -38,18 +39,8 @@ const handleEvent = (event) => {
                 text: `Jika menemukan orang yang efferian moment, gunakan command berikut:\n!efferian [@nama orang]\ncontoh: !efferian @vergi-lunas
                 `,
             });
-        }if (event.message.text.toLowerCase().startsWith('!help')) {
-            return client.replyMessage(event.replyToken, {
-                type: 'text',
-                text: `Command untuk nhentai : 
-                \n  1. g/{hentai code} 
-                \n mengambil galeri nhentai dari kode yang diinginkan, contoh g/177013
-                \n  2. nhentai {tags}
-                \n mencari hentai berdasarkan tags, bisa cari pakai banyak tags, contoh: nhentai ahegao shindoL "mind break"
-                \n  3. !nhentaiinfo {hentai code}
-                \n mengambil informasi tags dari hentaicode, contoh !nhentaiinfo 177013
-                `,
-            });
+        }if (event.message.text.toLowerCase().startsWith('!help') || event.message.text.toLowerCase() === 'help') {
+            handleHelpMessage(client, event.replyToken);
         }
         if (event.message.text.toLowerCase().startsWith('!efferian')) {
             const userEfferianMoment = event.message.text.toLowerCase().split('!efferian ')[1].split('@')[1];
@@ -181,27 +172,6 @@ const handleEvent = (event) => {
         if(event.message.text.toLowerCase().startsWith('!testdb')) {
             const dataUpdate = event.message.text.toLowerCase().split('!testdb ')[1];
             handleTestDb(client, event.replyToken, dataUpdate);
-        }
-        /**
-         * dev purpose
-         */
-        if (event.message.text.toLowerCase().startsWith('test quick')) {
-            return client.replyMessage(event.replyToken, {
-                "type": "text",
-                "text": "test",
-                "quickReply": {
-                    "items": [
-                        {
-                            "type": "action",
-                            "action": {
-                                "type": "message",
-                                "label": "click me please",
-                                "text": "hey i've been clicked"
-                            }
-                        }
-                    ]
-                }
-            })
         }
     }
     return Promise.resolve(null);
