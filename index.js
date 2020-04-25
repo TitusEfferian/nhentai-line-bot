@@ -182,6 +182,26 @@ const handleEvent = (event) => {
             const dataUpdate = event.message.text.toLowerCase().split('!testdb ')[1];
             handleTestDb(client, event.replyToken, dataUpdate);
         }
+        /**
+         * dev purpose
+         */
+        if (event.message.text.toLowerCase().startsWith('test quick')) {
+            return client.replyMessage(event.replyToken, {
+                "type": "text",
+                "text": "test",
+                "quickReply": {
+                    "items": [
+                        {
+                            "type": "action",
+                            "action": {
+                                "type": "message",
+                                "label": "click me please"
+                            }
+                        }
+                    ]
+                }
+            })
+        }
     }
     return Promise.resolve(null);
 }
