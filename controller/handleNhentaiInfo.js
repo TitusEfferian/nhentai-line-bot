@@ -7,17 +7,24 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     const infoResult = await fetchGethInfo.json();
     const parsedJson = JSON.parse(JSON.stringify(infoResult));
     const resultData = parsedJson.data;
-    const titleData = parsedJson.data.title;
-    const tagsData = resultData.tags;
     
-    const tags = tagsData.filter(x=>x.type == 'tag');
-    const language = tagsData.filter(x=>x.type === 'language');
-    const artist = tagsData.filter(x=>x.type === 'artist');
-    const parody = tagsData.filter(x=>x.type === 'parody');
-    const character = tagsData.filter(x=>x.type === 'character');
+    if (infoResult.success === false || resultData.error === true) {
+        return client.replyMessage(replyToken, {
+            "type": "text",
+            "text": "no info found for this search term " + searhParams,
+        });
 
+    }else if(infoResult.success === true  ){
+        
+        const titleData = parsedJson.data.title;
+        const tagsData = resultData.tags;
     
-	if(infoResult.success === true ){
+        const tags = tagsData.filter(x=>x.type == 'tag');
+        const language = tagsData.filter(x=>x.type === 'language');
+        const artist = tagsData.filter(x=>x.type === 'artist');
+        const parody = tagsData.filter(x=>x.type === 'parody');
+        const character = tagsData.filter(x=>x.type === 'character');
+
         return client.replyMessage(replyToken, {
 
             type: 'text',
@@ -31,13 +38,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
     
         });
         
-    }else if (infoResult.success === false || resultData.error === true) {
-        return client.replyMessage(replyToken, {
-            "type": "text",
-            "text": "no info found for this search term " + searhParams,
-        });
-
-    }else{
+    } else{
         return client.replyMessage(replyToken, {
             "type": "text",
             "text": "Invalid input " + searhParams,
