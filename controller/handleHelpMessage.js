@@ -1,8 +1,8 @@
 const randomEndPoint = process.env.NHENTAI_RANDOM_ENDPOINT.toString();
 const handleHelpMessage = async (client, replyToken) => {
-    const hitRandomEndPoint = await fetch(randomEndPoint);
-    const parseRandomEndPoint = await hitRandomEndPoint.json();
-    const getRandomTag = parseRandomEndPoint.data;
+    // const hitRandomEndPoint = await fetch(randomEndPoint);
+    // const parseRandomEndPoint = await hitRandomEndPoint.json();
+    // const getRandomTag = parseRandomEndPoint.data;
 
     const iconUrl = 'https://b2.crackwatch.com/file/crackwatch-temp/i2vhbw89a.jpg';
     return client.replyMessage(replyToken, {
@@ -16,7 +16,7 @@ const handleHelpMessage = async (client, replyToken) => {
                     "action": {
                         "type": "message",
                         "label": "nhentai reader",
-                        "text": getRandomTag,
+                        "text": 'g/310084',
                     }
                 },
                 {
