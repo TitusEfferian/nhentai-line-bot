@@ -7,6 +7,8 @@ const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
 const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
 const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
+const handleRamadhanTime = require('./controller/handleRamadhanTime');
+const handleHelpMessage = require('./controller/handleHelpMessage');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -37,18 +39,8 @@ const handleEvent = (event) => {
                 text: `Jika menemukan orang yang efferian moment, gunakan command berikut:\n!efferian [@nama orang]\ncontoh: !efferian @vergi-lunas
                 `,
             });
-        }if (event.message.text.toLowerCase().startsWith('!help')) {
-            return client.replyMessage(event.replyToken, {
-                type: 'text',
-                text: `Command untuk nhentai : 
-                \n  1. g/{hentai code} 
-                \n mengambil galeri nhentai dari kode yang diinginkan, contoh g/177013
-                \n  2. nhentai {tags}
-                \n mencari hentai berdasarkan tags, bisa cari pakai banyak tags, contoh !nhentai ahegao shindoL "mind break"
-                \n  3. !nhentaiinfo {hentai code}
-                \n mengambil informasi tags dari hentaicode, contoh !nhentaiinfo {177013}
-                `,
-            });
+        }if (event.message.text.toLowerCase().startsWith('!help') || event.message.text.toLowerCase() === 'help') {
+            handleHelpMessage(client, event.replyToken);
         }
         if (event.message.text.toLowerCase().startsWith('!efferian')) {
             const userEfferianMoment = event.message.text.toLowerCase().split('!efferian ')[1].split('@')[1];
@@ -79,6 +71,19 @@ const handleEvent = (event) => {
         }
         if (event.message.text.toLowerCase().startsWith('g/')) {
             (async () => {
+                /**
+                 * handle ramadhan block from group
+                 */
+                const isFromGroup = event.source.type === 'group';
+                if (isFromGroup && handleRamadhanTime()) {
+                    return client.replyMessage(event.replyToken, {
+                        "type": "text",
+                        "text": 'demi menghormati bulan suci ramadhan, bot nhentai akan menerima request diluar jam puasa hanya pada chat personal\n\ngroup chat akan aktif kembali ketika sudah berbuka puasa'
+                    });
+                }
+                /**
+                 * end of ramadhan block request
+                 */
                 const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
                 const arrayOfColumns = [];
                 const arrayOfReply = [];
@@ -141,6 +146,19 @@ const handleEvent = (event) => {
         }
         if(event.message.text.toLowerCase().startsWith('nhentai')) {
             (async () => {
+                /**
+                 * handle ramadhan block from group
+                 */
+                const isFromGroup = event.source.type === 'group';
+                if (isFromGroup && handleRamadhanTime()) {
+                    return client.replyMessage(event.replyToken, {
+                        "type": "text",
+                        "text": 'demi menghormati bulan suci ramadhan, bot nhentai akan menerima request diluar jam puasa hanya pada chat personal\n\ngroup chat akan aktif kembali ketika sudah berbuka puasa'
+                    });
+                }
+                /**
+                 * end of ramadhan block request
+                 */
                 const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
                 await handleNhentaiSearch(searchKeywords, client, event.replyToken);
             })();
