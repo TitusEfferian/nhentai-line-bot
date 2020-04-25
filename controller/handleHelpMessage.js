@@ -1,4 +1,4 @@
-const randomEndPoint = process.env.RANDOM_ENDPOINT.toString();
+const randomEndPoint = process.env.NHENTAI_RANDOM_ENDPOINT.toString();
 const handleHelpMessage = async (client, replyToken) => {
     const hitRandomEndPoint = await fetch(randomEndPoint);
     const parseRandomEndPoint = await hitRandomEndPoint.json();
