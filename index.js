@@ -195,7 +195,8 @@ const handleEvent = (event) => {
                             "type": "action",
                             "action": {
                                 "type": "message",
-                                "label": "click me please"
+                                "label": "click me please",
+                                "text": "hey i've been clicked"
                             }
                         }
                     ]
