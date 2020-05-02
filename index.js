@@ -45,6 +45,13 @@ const handleEvent = (event) => {
         }
         if (event.message.text.toLowerCase().startsWith('!efferian')) {
             const userEfferianMoment = event.message.text.toLowerCase().split('!efferian ')[1].split('@')[1];
+            const isFromUser = event.source.type === 'user';
+            if (isFromUser) {
+                return client.replyMessage(event.replyToken, {
+                    type: 'text',
+                    text: 'blocked request',
+                });
+            }
             handleCountEfferianPoints({
                 username: userEfferianMoment,
             });
