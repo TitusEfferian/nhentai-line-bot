@@ -48,7 +48,7 @@ const handleEvent = (event) => {
             const userEfferianMoment = event.message.text.toLowerCase().split('!efferian ')[1].split('@')[1];
             const isFromUser = event.source.type === 'user';
             const isFromEfferianGroup = event.source.groupId === efferianGroupId;
-            if (isFromUser && !isFromEfferianGroup) {
+            if (isFromUser || !isFromEfferianGroup) {
                 return client.replyMessage(event.replyToken, {
                     type: 'text',
                     text: 'blocked request',
