@@ -19,6 +19,7 @@ const config = {
 const nhentaiCrawler = process.env.NHENTAI_CRAWLER.toString();
 const nhentaiByPass = process.env.NHENTAI_BYPASS.toString();
 const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
+const efferianGroupId = process.env.EFFERIAN_GROUP_ID.toString();
 
 const app = express();
 
@@ -46,7 +47,8 @@ const handleEvent = (event) => {
         if (event.message.text.toLowerCase().startsWith('!efferian')) {
             const userEfferianMoment = event.message.text.toLowerCase().split('!efferian ')[1].split('@')[1];
             const isFromUser = event.source.type === 'user';
-            if (isFromUser) {
+            const isFromEfferianGroup = event.source.groupId === efferianGroupId;
+            if (isFromUser && !isFromEfferianGroup) {
                 return client.replyMessage(event.replyToken, {
                     type: 'text',
                     text: 'blocked request',
