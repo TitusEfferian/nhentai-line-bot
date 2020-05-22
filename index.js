@@ -7,7 +7,6 @@ const handleGetTopPlayer = require('./controller/handleGetTopPlayer');
 const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
 const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
-const handleRamadhanTime = require('./controller/handleRamadhanTime');
 const handleHelpMessage = require('./controller/handleHelpMessage');
 const handleNhentaiRandom = require('./controller/handleRandomNhentai');
 
@@ -82,16 +81,6 @@ const handleEvent = (event) => {
         if (event.message.text.toLowerCase().startsWith('g/')) {
             (async () => {
                 /**
-                 * handle ramadhan block from group
-                 */
-                const isFromGroup = event.source.type === 'group';
-                if (isFromGroup && handleRamadhanTime()) {
-                    return client.replyMessage(event.replyToken, {
-                        "type": "text",
-                        "text": 'demi menghormati bulan suci ramadhan, bot nhentai akan menerima request diluar jam puasa hanya pada chat personal\n\ngroup chat akan aktif kembali ketika sudah berbuka puasa'
-                    });
-                }
-                /**
                  * end of ramadhan block request
                  */
                 const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
@@ -156,16 +145,6 @@ const handleEvent = (event) => {
         }
         if(event.message.text.toLowerCase().startsWith('nhentai')) {
             (async () => {
-                /**
-                 * handle ramadhan block from group
-                 */
-                const isFromGroup = event.source.type === 'group';
-                if (isFromGroup && handleRamadhanTime()) {
-                    return client.replyMessage(event.replyToken, {
-                        "type": "text",
-                        "text": 'demi menghormati bulan suci ramadhan, bot nhentai akan menerima request diluar jam puasa hanya pada chat personal\n\ngroup chat akan aktif kembali ketika sudah berbuka puasa'
-                    });
-                }
                 /**
                  * end of ramadhan block request
                  */
