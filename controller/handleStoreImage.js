@@ -8,7 +8,7 @@ const handleStoreImage = async (client, event) => {
     if (type === 'group') {
         if (groupId === devGroupId || groupId === efferianGroupId) {
             try {
-                const fetchResult = await fetch(`${storageEndpoint}?messageId=${id}`);
+                const fetchResult = fetch(`${storageEndpoint}?messageId=${id}`);
                 return Promise.resolve(null);
             } catch (err) {
                 return client.replyMessage(replyToken, {
