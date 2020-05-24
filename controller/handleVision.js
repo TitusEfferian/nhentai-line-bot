@@ -9,24 +9,30 @@ const handleVision = async (client, event, imageName) => {
             try {
                 const [result] = await vision.webDetection(`gs://eff_temp/${imageName}`);
                 const webDetection = result.webDetection;
-                if (webDetection.fullMatchingImages.length) {
-                    return client.replyMessage(replyToken, {
-                        type: 'text',
-                        text: 'vision: ' + webDetection.fullMatchingImages.map((x, y) => {
-                            return '\n' + (y + 1) + '. ' + x.url;
-                        }),
-                    });
+                if (webDetection) {
+                    if (webDetection.fullMatchingImages.length) {
+                        return client.replyMessage(replyToken, {
+                            type: 'text',
+                            text: 'vision: ' + webDetection.fullMatchingImages.map((x, y) => {
+                                return '\n' + (y + 1) + '. ' + x.url;
+                            }),
+                        });
+                    }
+                    if (!webDetection.fullMatchingImages.length) {
+                        return client.replyMessage(replyToken, {
+                            type: 'text',
+                            text: `no vision detected`,
+                        });
+                    }
                 }
-                if (!webDetection.fullMatchingImages.length) {
-                    return client.replyMessage(replyToken, {
-                        type: 'text',
-                        text: `no vision detected`,
-                    });
-                }
+                return client.replyMessage(replyToken, {
+                    type: 'text',
+                    text: 'temporary image telah dihapus',
+                });
             } catch (err) {
                 return client.replyMessage(replyToken, {
                     type: 'text',
-                    text: err ? err : 'temporary image sudah dihapus',
+                    text: JSON.stringify(err),
                 })
             }
         }
