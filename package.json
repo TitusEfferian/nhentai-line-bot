@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@google-cloud/firestore": "^3.7.3",
+    "@google-cloud/storage": "^5.0.1",
     "@line/bot-sdk": "^6.8.4",
     "express": "^4.17.1",
     "isomorphic-unfetch": "^3.0.0",
