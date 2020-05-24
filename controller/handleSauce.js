@@ -10,39 +10,37 @@ const handleLoopLength = filesLength => {
 
 const handleSauce = async (client, event) => {
     const { replyToken, source: { groupId }, message: { id } } = event;
-    const imageResult = [];
     if (groupId === devGroupId) {
+        const imageResult = [];
         try {
             const [files] = await storage.bucket(`eff_temp`).getFiles();
+            files.reverse();
             for (let a = 0; a < handleLoopLength(files.length); a++) {
                 imageResult.push({
-                    "imageUrl": `https://storage.cloud.google.com/eff_temp/${files[a].name}`,
+                    "imageUrl": `https://storage.googleapis.com/eff_temp/${files[a].name}`,
                     "action": {
                         "type": "message",
-                        "label": `${files[a].name}`,
-                        "text": `sauce_id ${files[a].name}`,
+                        "label": `${a+1}`,
+                        "text": `sauce_id ${files[a].name.toString()}`,
                     }
                 });
             }
             return client.replyMessage(replyToken, [
                 {
                     type: 'text',
-                    text: 'anda mencari sumber dari gambar?'
+                    text: 'anda mencari sumber dari gambar? pilih gambar yang ingin dicari sumbernya'
                 },
                 {
-                    type: 'text',
-                    text: 'pilih gambar berikut yang ingin dicari sumbernya'
-                },
-                {
-                    type: 'template',
-                    altText: 'list of image',
-                    template: {
-                        type: 'image_carousel',
-                        columns: imageResult,
+                    "type": "template",
+                    "altText": "sauce",
+                    "template": {
+                        "type": "image_carousel",
+                        "columns": imageResult
                     }
                 }
             ])
         } catch (err) {
+            console.log(err)
             return client.replyMessage(replyToken, {
                 type: 'text',
                 text: JSON.stringify(err),
