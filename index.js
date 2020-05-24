@@ -164,11 +164,11 @@ const handleEvent = (event) => {
                 await handleNhentaiRandom(client, event.replyToken);
             })();
         }
-        if (event.message.type === 'image') {
-            (async () => {
-                await handleStoreImage(client, event);
-            })();
-        }
+    }
+    if (event.message.type === 'image') {
+        (async () => {
+            await handleStoreImage(client, event);
+        })();
     }
     return Promise.resolve(null);
 }
