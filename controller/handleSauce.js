@@ -21,7 +21,7 @@ const handleSauce = async (client, event) => {
                     "action": {
                         "type": "message",
                         "label": `${a+1}`,
-                        "text": `sauce_id ${files[a].name.toString()}`,
+                        "text": `!vision ${files[a].name.toString()}`,
                     }
                 });
             }
@@ -40,7 +40,6 @@ const handleSauce = async (client, event) => {
                 }
             ])
         } catch (err) {
-            console.log(err)
             return client.replyMessage(replyToken, {
                 type: 'text',
                 text: JSON.stringify(err),

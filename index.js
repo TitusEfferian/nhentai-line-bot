@@ -11,6 +11,7 @@ const handleHelpMessage = require('./controller/handleHelpMessage');
 const handleNhentaiRandom = require('./controller/handleRandomNhentai');
 const handleStoreImage = require('./controller/handleStoreImage');
 const handleSauce = require('./controller/handleSauce');
+const handleVision = require('./controller/handleVision');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -169,6 +170,12 @@ const handleEvent = (event) => {
             (async () => {
                 await handleSauce(client, event);
             })();
+        }
+        if(event.message.text.toLowerCase().startsWith('!vision')) {
+            (async ()=>{
+                const imageName = event.message.text.toLowerCase().split('!vision ')[1];
+                await handleVision(client, event, imageName);
+            })()
         }
     }
     if (event.message.type === 'image') {
