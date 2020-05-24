@@ -7,13 +7,15 @@ const handleVision = async (client, event, imageName) => {
     if (groupId === devGroupId || groupId === efferianGroupId) {
         const [result] = await vision.webDetection(`gs://eff_temp/${imageName}`);
         const webDetection = result.webDetection;
-        if (webDetection.fullMatchingImages.length > 0) {
+        if (webDetection.fullMatchingImages.length) {
             return client.replyMessage(replyToken, {
                 type: 'text',
-                text: webDetection.fullMatchingImages[0].url,
+                text: 'top efferian moment: ' + webDetection.fullMatchingImages.map((x, y) => {
+                    return '\n' + (y + 1) + '. ' + x.url;
+                }),
             });
         }
-        if (webDetection.fullMatchingImages.length === 0) {
+        if (!webDetection.fullMatchingImages.length) {
             return client.replyMessage(replyToken, {
                 type: 'text',
                 text: `no vision detected`,
