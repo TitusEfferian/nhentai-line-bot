@@ -8,7 +8,7 @@ const handleLoopLength = filesLength => {
     return filesLength;
 }
 
-const handleSauce = (client, event) => {
+const handleSauce = async (client, event) => {
     const { replyToken, source: { groupId }, message: { id } } = event;
     const imageResult = [];
     if (groupId === devGroupId) {
