@@ -36,7 +36,7 @@ const handleSauce = (client, event) => {
                 type: 'template',
                 altText: 'list of image',
                 template: {
-                    type: 'image_carouse',
+                    type: 'image_carousel',
                     columns: imageResult,
                 }
             }
