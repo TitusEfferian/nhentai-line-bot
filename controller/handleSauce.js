@@ -1,4 +1,6 @@
 const devGroupId = process.env.DEV_GROUP_ID.toString();
+const efferianGroupId = process.env.EFFERIAN_GROUP_ID.toString();
+
 const storage = require('../StorageConnector');
 
 const handleLoopLength = filesLength => {
@@ -10,7 +12,7 @@ const handleLoopLength = filesLength => {
 
 const handleSauce = async (client, event) => {
     const { replyToken, source: { groupId }, message: { id } } = event;
-    if (groupId === devGroupId) {
+    if (groupId === devGroupId || groupId === efferianGroupId) {
         const imageResult = [];
         try {
             const [files] = await storage.bucket(`eff_temp`).getFiles();
@@ -28,7 +30,7 @@ const handleSauce = async (client, event) => {
             return client.replyMessage(replyToken, [
                 {
                     type: 'text',
-                    text: 'anda mencari sumber dari gambar? pilih gambar yang ingin dicari sumbernya'
+                    text: '[fitur eksklusif] - anda mencari sumber dari gambar? pilih gambar yang ingin dicari sumbernya'
                 },
                 {
                     "type": "template",
@@ -46,7 +48,7 @@ const handleSauce = async (client, event) => {
             });
         }
     }
-    return;
+    return Promise.resolve(null);
 }
 
 module.exports = handleSauce;
