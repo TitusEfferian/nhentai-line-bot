@@ -26,7 +26,7 @@ const handleVision = async (client, event, imageName) => {
             } catch (err) {
                 return client.replyMessage(replyToken, {
                     type: 'text',
-                    text: JSON.stringify(err)
+                    text: err || 'temporary image sudah dihapus',
                 })
             }
         }
