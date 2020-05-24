@@ -37,13 +37,7 @@ const handleEvent = (event) => {
      */
     if (event.message.type === 'text') {
         console.log(event);
-        if (event.message.text.toLowerCase().startsWith('!usage')) {
-            return client.replyMessage(event.replyToken, {
-                type: 'text',
-                text: `Jika menemukan orang yang efferian moment, gunakan command berikut:\n!efferian [@nama orang]\ncontoh: !efferian @vergi-lunas
-                `,
-            });
-        }if (event.message.text.toLowerCase().startsWith('!help') || event.message.text.toLowerCase() === 'help') {
+        if (event.message.text.toLowerCase().startsWith('!help') || event.message.text.toLowerCase() === 'help') {
             handleHelpMessage(client, event.replyToken);
         }
         if (event.message.text.toLowerCase().startsWith('!efferian')) {
@@ -116,7 +110,7 @@ const handleEvent = (event) => {
                              * experiment performance load
                              */
                             // "uri": "https://cult.fajar.co/" + nhentaiCode + "/" + a,
-                            "uri": nhentaiByPassOriginal + "?bucketId="+arrayOfImage[0].bucket_id+"&nhenPage=" + a,
+                            "uri": nhentaiByPassOriginal + "?bucketId=" + arrayOfImage[0].bucket_id + "&nhenPage=" + a,
                         }
                     });
                 }
@@ -146,7 +140,7 @@ const handleEvent = (event) => {
                 return client.replyMessage(event.replyToken, arrayOfReply);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('nhentai')) {
+        if (event.message.text.toLowerCase().startsWith('nhentai')) {
             (async () => {
                 /**
                  * end of ramadhan block request
@@ -155,24 +149,24 @@ const handleEvent = (event) => {
                 await handleNhentaiSearch(searchKeywords, client, event.replyToken);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('!nhentaiinfo')) {
+        if (event.message.text.toLowerCase().startsWith('!nhentaiinfo')) {
             (async () => {
                 const nhentaiCode = event.message.text.toLowerCase().split('!nhentaiinfo ')[1];
-                await handleNhentaiInfo(nhentaiCode,client,event.replyToken);
+                await handleNhentaiInfo(nhentaiCode, client, event.replyToken);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('dev flex')) {
+        if (event.message.text.toLowerCase().startsWith('dev flex')) {
             (async () => {
                 await handleNhentaiRandom(client, event.replyToken);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('sauce')) {
+        if (event.message.text.toLowerCase().startsWith('sauce')) {
             (async () => {
                 await handleSauce(client, event);
             })();
         }
-        if(event.message.text.toLowerCase().startsWith('!vision')) {
-            (async ()=>{
+        if (event.message.text.toLowerCase().startsWith('!vision')) {
+            (async () => {
                 const imageName = event.message.text.toLowerCase().split('!vision ')[1];
                 await handleVision(client, event, imageName);
             })()
