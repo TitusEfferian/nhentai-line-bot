@@ -1,5 +1,4 @@
 const handleHelpMessage = async (client, replyToken) => {
-    const iconUrl = 'https://b2.crackwatch.com/file/crackwatch-temp/i2vhbw89a.jpg';
     return client.replyMessage(replyToken, {
         "type": "text",
         "text": "nhentai unofficial commands example",
@@ -7,7 +6,6 @@ const handleHelpMessage = async (client, replyToken) => {
             "items": [
                 {
                     "type": "action",
-                    "imageUrl": iconUrl,
                     "action": {
                         "type": "message",
                         "label": "nhentai reader",
@@ -16,7 +14,6 @@ const handleHelpMessage = async (client, replyToken) => {
                 },
                 {
                     "type": "action",
-                    "imageUrl": iconUrl,
                     "action": {
                         "type": "message",
                         "label": "nhentai search",
@@ -25,7 +22,14 @@ const handleHelpMessage = async (client, replyToken) => {
                 },
                 {
                     "type": "action",
-                    "imageUrl": iconUrl,
+                    "action": {
+                        "type": "message",
+                        "label": "sauce",
+                        "text": "sauce"
+                    }
+                },
+                {
+                    "type": "action",
                     "action": {
                         "type": "message",
                         "label": "nhentai info",

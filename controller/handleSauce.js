@@ -1,4 +1,5 @@
 const devGroupId = process.env.DEV_GROUP_ID.toString();
+const contactMe = process.env.CONTACT_ME.toString();
 const efferianGroupId = process.env.EFFERIAN_GROUP_ID.toString();
 
 const storage = require('../StorageConnector');
@@ -49,6 +50,10 @@ const handleSauce = async (client, event) => {
                 });
             }
         }
+        return client.replyMessage(replyToken, {
+            type: 'text',
+            text: contactMe,
+        });
     }
 
     return Promise.resolve(null);
