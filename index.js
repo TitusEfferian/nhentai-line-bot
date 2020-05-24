@@ -9,6 +9,7 @@ const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
 const handleHelpMessage = require('./controller/handleHelpMessage');
 const handleNhentaiRandom = require('./controller/handleRandomNhentai');
+const handleStoreImage = require('./controller/handleStoreImage');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -161,6 +162,11 @@ const handleEvent = (event) => {
         if(event.message.text.toLowerCase().startsWith('dev flex')) {
             (async () => {
                 await handleNhentaiRandom(client, event.replyToken);
+            })();
+        }
+        if (event.message.type === 'image') {
+            (async () => {
+                await handleStoreImage(client, event);
             })();
         }
     }
