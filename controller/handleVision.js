@@ -10,7 +10,7 @@ const handleVision = async (client, event, imageName) => {
         if (webDetection.fullMatchingImages.length) {
             return client.replyMessage(replyToken, {
                 type: 'text',
-                text: 'top efferian moment: ' + webDetection.fullMatchingImages.map((x, y) => {
+                text: 'vision: ' + webDetection.fullMatchingImages.map((x, y) => {
                     return '\n' + (y + 1) + '. ' + x.url;
                 }),
             });
