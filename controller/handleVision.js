@@ -13,9 +13,7 @@ const handleVision = async (client, event, imageName) => {
                     if (webDetection.fullMatchingImages.length) {
                         return client.replyMessage(replyToken, {
                             type: 'text',
-                            text: 'vision: ' + webDetection.fullMatchingImages.map((x, y) => {
-                                return '\n' + (y + 1) + '. ' + x.url;
-                            }),
+                            text: `${webDetection.fullMatchingImages.map(x=>x.url).join('\n')}`
                         });
                     }
                     if (!webDetection.fullMatchingImages.length) {
