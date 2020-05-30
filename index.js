@@ -106,11 +106,7 @@ const handleEvent = (event) => {
                         "action": {
                             "type": "uri",
                             "label": a,
-                            /**
-                             * experiment performance load
-                             */
-                            // "uri": "https://cult.fajar.co/" + nhentaiCode + "/" + a,
-                            "uri": nhentaiByPassOriginal + "?bucketId=" + arrayOfImage[0].bucket_id + "&nhenPage=" + a,
+                            "uri": `${nhentaiByPassOriginal}?url=${arrayOfImage[0].original}`,
                         }
                     });
                 }
