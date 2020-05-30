@@ -106,7 +106,7 @@ const handleEvent = (event) => {
                         "action": {
                             "type": "uri",
                             "label": a,
-                            "uri": `${nhentaiByPassOriginal}?url=${arrayOfImage[0].original}`,
+                            "uri": `${nhentaiByPassOriginal}?source=${arrayOfImage[0].original}`,
                         }
                     });
                 }
