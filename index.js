@@ -102,11 +102,11 @@ const handleEvent = (event) => {
                 };
                 for (let a = 1; a <= totalPage; a++) {
                     arrayOfColumns.push({
-                        "imageUrl": nhentaiByPass + "?bucketId=" + arrayOfImage[0].bucket_id + "&nhenPage=" + a,
+                        "imageUrl": `${nhentaiByPassOriginal}?source=${arrayOfImage[a - 1].preview}`,
                         "action": {
                             "type": "uri",
                             "label": a,
-                            "uri": `${nhentaiByPassOriginal}?source=${arrayOfImage[a].original}`,
+                            "uri": `${nhentaiByPassOriginal}?source=${arrayOfImage[a - 1].original}`,
                         }
                     });
                 }
