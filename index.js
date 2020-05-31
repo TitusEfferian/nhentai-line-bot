@@ -22,6 +22,7 @@ const nhentaiCrawler = process.env.NHENTAI_CRAWLER.toString();
 const nhentaiByPass = process.env.NHENTAI_BYPASS.toString();
 const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
 const efferianGroupId = process.env.EFFERIAN_GROUP_ID.toString();
+const nhentaiFullReader = process.env.NHENTAI_FULL_READER.toString();
 
 const app = express();
 
@@ -82,7 +83,6 @@ const handleEvent = (event) => {
                  */
                 const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
                 const arrayOfColumns = [];
-                const arrayOfReply = [];
                 const resultFetchBeforeParse = await fetch(nhentaiCrawler + '?nhentaiId=' + nhentaiCode);
                 const resultFetch = await resultFetchBeforeParse.json();
                 const arrayOfImage = resultFetch.arrayOfImage;
@@ -94,46 +94,36 @@ const handleEvent = (event) => {
                         text: nhentaiCode + ' not found',
                     })
                 }
-                const numberOfReplies = () => {
-                    if (totalPage > 50) {
+                const numberOfColumns = () => {
+                    if (totalPage > 5) {
                         return 5;
                     }
-                    return totalPage % 10 === 0 ? totalPage / 10 : Math.floor(totalPage / 10) + 1;
-                };
-                for (let a = 1; a <= totalPage; a++) {
+                    return totalPage
+                }
+                const handleLabel = (currentIndex) => {
+                    if (currentIndex === 5) {
+                        return `view more`;
+                    }
+                    return `${String(currentIndex)}`;
+                }
+                for (let a = 1; a <= numberOfColumns(); a++) {
                     arrayOfColumns.push({
                         "imageUrl": `${nhentaiByPassOriginal}?source=${arrayOfImage[a - 1].preview}`,
                         "action": {
                             "type": "uri",
-                            "label": a,
-                            "uri": `${nhentaiByPassOriginal}?source=${arrayOfImage[a - 1].original}`,
+                            "label": handleLabel(a),
+                            "uri": `${nhentaiFullReader}?source=${nhentaiCode}`,
                         }
                     });
                 }
-                for (let a = 1; a <= numberOfReplies(); a++) {
-                    arrayOfReply.push({
-                        "type": "template",
-                        "altText": "nhentai g/" + nhentaiCode,
-                        "template": {
-                            "type": "image_carousel",
-                            "columns": arrayOfColumns.filter((x, y) => {
-                                if (a === 1) {
-                                    return y >= 0 && y <= 9;
-                                } else if (a === 2) {
-                                    return y >= 10 && y <= 19;
-                                } else if (a === 3) {
-                                    return y >= 20 && y <= 29;
-                                } else if (a === 4) {
-                                    return y >= 30 && y <= 39;
-                                } else if (a === 5) {
-                                    return y >= 40 && y <= 49;
-                                }
-                                return;
-                            }),
-                        }
-                    })
-                }
-                return client.replyMessage(event.replyToken, arrayOfReply);
+                return client.replyMessage(event.replyToken, {
+                    type: 'template',
+                    altText: `nhentai g/${nhentaiCode}`,
+                    template: {
+                        type: 'image_carousel',
+                        columns: arrayOfColumns,
+                    }
+                });
             })();
         }
         if (event.message.text.toLowerCase().startsWith('nhentai')) {
