@@ -2,6 +2,8 @@ const fetch = require('isomorphic-unfetch');
 
 const nhentaiSearchBypass = process.env.NHENTAI_SEARCH_BYPASS.toString();
 const nhentaiSearchCrawler = process.env.NHENTAI_SEARCH_CRAWLER.toString();
+const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
+const nhentaiFullReader = process.env.NHENTAI_FULL_READER.toString();
 
 const handleNhentaiSearch = async (searhParams, client, replyToken) => {
     try {
@@ -25,30 +27,36 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
         for (let a = 1; a <= handleValidateIncrement(); a++) {
             arrayOfColumns.push(
                 {
-                    "imageUrl": nhentaiSearchBypass + "?url=" + arrayOfResult[a - 1].preview,
+                    "imageUrl": `${nhentaiByPassOriginal}?source=${arrayOfResult[a - 1].preview}`,
                     "action": {
-                        "type": "postback",
+                        "type": "uri",
                         "label": arrayOfResult[a - 1].nhentai_id,
-                        "data": "bypass",
+                        "uri": `${nhentaiFullReader}?source=${arrayOfResult[a - 1].nhentai_id.split('/')[1]}`,
                     }
                 }
             )
         }
-        return client.replyMessage(replyToken, {
-            "type": "template",
-            "altText": "nhentai results",
-            "template": {
-                "type": "image_carousel",
-                "columns": arrayOfColumns,
+        return client.replyMessage(replyToken, [
+            {
+                "type": "text",
+                "text": "klik gambar untuk melihat seluruh halaman",
+            },
+            {
+                "type": "template",
+                "altText": "nhentai results",
+                "template": {
+                    "type": "image_carousel",
+                    "columns": arrayOfColumns,
+                }
             }
-        });
+        ]);
     } catch (err) {
         return client.replyMessage(replyToken, {
             "type": "text",
             "text": JSON.stringify(err),
         });
     }
-    
+
 };
 
 module.exports = handleNhentaiSearch;
