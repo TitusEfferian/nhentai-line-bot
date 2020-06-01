@@ -132,17 +132,14 @@ const handleEvent = (event) => {
                 ]);
             })();
         }
-        if (event.message.text.toLowerCase() === 'nhentai random') {
-            (async () => {
-                await handleNhentaiRandom(client, event.replyToken);
-            })();
-        }
         if (event.message.text.toLowerCase().startsWith('nhentai')) {
+            const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
+            if (searchKeywords === 'random') {
+                (async () => {
+                    await handleNhentaiRandom(client, event.replyToken);
+                })();
+            }
             (async () => {
-                /**
-                 * end of ramadhan block request
-                 */
-                const searchKeywords = event.message.text.toLowerCase().split('nhentai ')[1];
                 await handleNhentaiSearch(searchKeywords, client, event.replyToken);
             })();
         }
