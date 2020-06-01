@@ -8,7 +8,7 @@ const handleNhentaiSearch = require('./controller/handleNhentaiSearch');
 const handleNhentaiInfo = require('./controller/handleNhentaiInfo');
 const handleTestDb = require('./controller/handleTestDb');
 const handleHelpMessage = require('./controller/handleHelpMessage');
-// const handleNhentaiRandom = require('./controller/handleRandomNhentai');
+const handleNhentaiRandom = require('./controller/handleRandomNhentai');
 const handleStoreImage = require('./controller/handleStoreImage');
 const handleSauce = require('./controller/handleSauce');
 const handleVision = require('./controller/handleVision');
@@ -151,11 +151,11 @@ const handleEvent = (event) => {
          * @todo
          * change to template mode
          */
-        // if (event.message.text.toLowerCase().startsWith('dev flex')) {
-        //     (async () => {
-        //         await handleNhentaiRandom(client, event.replyToken);
-        //     })();
-        // }
+        if (event.message.text.toLowerCase().startsWith('dev flex')) {
+            (async () => {
+                await handleNhentaiRandom(client, event.replyToken);
+            })();
+        }
         if (event.message.text.toLowerCase().startsWith('sauce')) {
             (async () => {
                 await handleSauce(client, event);

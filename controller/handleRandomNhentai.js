@@ -1,5 +1,6 @@
 const randomEndPoint = process.env.NHENTAI_RANDOM_ENDPOINT.toString();
 const nhentaiSearchBypass = process.env.NHENTAI_SEARCH_BYPASS.toString();
+const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
 
 const handleRandomNhentai = async (client, replyToken) => {
     const hitRandomEndPoint = await fetch(randomEndPoint);
@@ -22,7 +23,7 @@ const handleRandomNhentai = async (client, replyToken) => {
                             "contents": [
                                 {
                                     "type": "image",
-                                    "url": nhentaiSearchBypass + '?url=' + previewImg,
+                                    "url": `${nhentaiByPassOriginal}?source=${previewImg}`,
                                     "size": "full",
                                     "aspectMode": "cover",
                                     "gravity": "top",
