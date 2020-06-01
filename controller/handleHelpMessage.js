@@ -28,14 +28,14 @@ const handleHelpMessage = async (client, replyToken) => {
                         "text": "nhentai random"
                     }
                 },
-                {
-                    "type": "action",
-                    "action": {
-                        "type": "message",
-                        "label": "sauce",
-                        "text": "sauce"
-                    }
-                },
+                // {
+                //     "type": "action",
+                //     "action": {
+                //         "type": "message",
+                //         "label": "sauce",
+                //         "text": "sauce"
+                //     }
+                // },
                 {
                     "type": "action",
                     "action": {
