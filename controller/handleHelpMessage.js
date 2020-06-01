@@ -24,6 +24,14 @@ const handleHelpMessage = async (client, replyToken) => {
                     "type": "action",
                     "action": {
                         "type": "message",
+                        "label": "nhentai random",
+                        "text": "nhentai random"
+                    }
+                },
+                {
+                    "type": "action",
+                    "action": {
+                        "type": "message",
                         "label": "sauce",
                         "text": "sauce"
                     }
