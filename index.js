@@ -116,14 +116,20 @@ const handleEvent = (event) => {
                         }
                     });
                 }
-                return client.replyMessage(event.replyToken, {
-                    type: 'template',
-                    altText: `nhentai g/${nhentaiCode}`,
-                    template: {
-                        type: 'image_carousel',
-                        columns: arrayOfColumns,
+                return client.replyMessage(event.replyToken, [
+                    {
+                        type: 'text',
+                        text: 'klik gambar untuk melihat seluruh halaman',
+                    },
+                    {
+                        type: 'template',
+                        altText: `nhentai g/${nhentaiCode}`,
+                        template: {
+                            type: 'image_carousel',
+                            columns: arrayOfColumns,
+                        }
                     }
-                });
+                ]);
             })();
         }
         if (event.message.text.toLowerCase().startsWith('nhentai')) {
