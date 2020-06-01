@@ -138,10 +138,11 @@ const handleEvent = (event) => {
                 (async () => {
                     await handleNhentaiRandom(client, event.replyToken);
                 })();
+            } else {
+                (async () => {
+                    await handleNhentaiSearch(searchKeywords, client, event.replyToken);
+                })();
             }
-            (async () => {
-                await handleNhentaiSearch(searchKeywords, client, event.replyToken);
-            })();
         }
         if (event.message.text.toLowerCase().startsWith('!nhentaiinfo')) {
             (async () => {
