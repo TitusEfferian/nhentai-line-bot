@@ -31,6 +31,18 @@ const handleRandomNhentai = async (client, replyToken) => {
                                 }
                             }
                         ],
+                    },
+                    "quickReply": {
+                        "items": [
+                            {
+                                "type": "action",
+                                "action": {
+                                    "type": "message",
+                                    "label": "nhentai random",
+                                    "text": "nhentai random",
+                                }
+                            }
+                        ]
                     }
                 }
             ]);

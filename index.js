@@ -132,6 +132,11 @@ const handleEvent = (event) => {
                 ]);
             })();
         }
+        if (event.message.text.toLowerCase() === 'nhentai random') {
+            (async () => {
+                await handleNhentaiRandom(client, event.replyToken);
+            })();
+        }
         if (event.message.text.toLowerCase().startsWith('nhentai')) {
             (async () => {
                 /**
@@ -145,15 +150,6 @@ const handleEvent = (event) => {
             (async () => {
                 const nhentaiCode = event.message.text.toLowerCase().split('!nhentaiinfo ')[1];
                 await handleNhentaiInfo(nhentaiCode, client, event.replyToken);
-            })();
-        }
-        /**
-         * @todo
-         * change to template mode
-         */
-        if (event.message.text.toLowerCase().startsWith('dev flex')) {
-            (async () => {
-                await handleNhentaiRandom(client, event.replyToken);
             })();
         }
         if (event.message.text.toLowerCase().startsWith('sauce')) {
