@@ -38,6 +38,34 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                 }
             )
         }
+        if (isPopular.length === 1) {
+            return client.replyMessage(replyToken, [
+                {
+                    "type": "text",
+                    "text": "klik gambar untuk melihat seluruh halaman",
+                },
+                {
+                    "type": "template",
+                    "altText": "nhentai results",
+                    "template": {
+                        "type": "image_carousel",
+                        "columns": arrayOfColumns,
+                    },
+                    "quickReply": {
+                        "items": [
+                            {
+                                "type": "action",
+                                "action": {
+                                    "type": "message",
+                                    "label": "sort by popular",
+                                    "text": `nhentai ${searhParams} popular`
+                                }
+                            }
+                        ]
+                    }
+                },
+            ]);
+        }
         return client.replyMessage(replyToken, [
             {
                 "type": "text",
@@ -50,18 +78,6 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                     "type": "image_carousel",
                     "columns": arrayOfColumns,
                 },
-                "quickReply": {
-                    "items": [
-                        {
-                            "type": "action",
-                            "action": {
-                                "type": "message",
-                                "label": "popular",
-                                "text": `nhentai ${searhParams} popular`
-                            }
-                        }
-                    ]
-                }
             },
         ]);
     } catch (err) {
