@@ -12,6 +12,7 @@ const handleNhentaiRandom = require('./controller/handleRandomNhentai');
 const handleStoreImage = require('./controller/handleStoreImage');
 const handleSauce = require('./controller/handleSauce');
 const handleVision = require('./controller/handleVision');
+const quickReplyList = require('./controller/quickReply');
 
 const config = {
     channelAccessToken: process.env.ACCESS_TOKEN.toString(),
@@ -127,6 +128,9 @@ const handleEvent = (event) => {
                         template: {
                             type: 'image_carousel',
                             columns: arrayOfColumns,
+                        },
+                        quickReply: {
+                            items: quickReplyList,
                         }
                     }
                 ]);

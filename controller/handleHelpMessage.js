@@ -8,7 +8,7 @@ const handleHelpMessage = async (client, replyToken) => {
                     "type": "action",
                     "action": {
                         "type": "message",
-                        "label": "nhentai reader",
+                        "label": "reader",
                         "text": 'g/310084',
                     }
                 },
@@ -16,7 +16,7 @@ const handleHelpMessage = async (client, replyToken) => {
                     "type": "action",
                     "action": {
                         "type": "message",
-                        "label": "nhentai search",
+                        "label": "search",
                         "text": "nhentai suguha"
                     }
                 },
@@ -24,23 +24,15 @@ const handleHelpMessage = async (client, replyToken) => {
                     "type": "action",
                     "action": {
                         "type": "message",
-                        "label": "nhentai random",
+                        "label": "random",
                         "text": "nhentai random"
                     }
                 },
-                // {
-                //     "type": "action",
-                //     "action": {
-                //         "type": "message",
-                //         "label": "sauce",
-                //         "text": "sauce"
-                //     }
-                // },
                 {
                     "type": "action",
                     "action": {
                         "type": "message",
-                        "label": "nhentai info",
+                        "label": "info",
                         "text": "!nhentaiinfo 310084"
                     }
                 }
