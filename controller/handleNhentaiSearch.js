@@ -49,20 +49,20 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                 "template": {
                     "type": "image_carousel",
                     "columns": arrayOfColumns,
+                },
+                "quickReply": {
+                    "items": [
+                        {
+                            "type": "action",
+                            "action": {
+                                "type": "message",
+                                "label": "popular",
+                                "text": `nhentai ${searhParams} popular`
+                            }
+                        }
+                    ]
                 }
             },
-            "quickReply": {
-                "items": [
-                    {
-                        "type": "action",
-                        "action": {
-                            "type": "message",
-                            "label": "popular",
-                            "text": `nhentai ${searhParams} popular`
-                        }
-                    }
-                ]
-            }
         ]);
     } catch (err) {
         return client.replyMessage(replyToken, {
