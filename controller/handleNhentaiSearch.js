@@ -8,8 +8,9 @@ const nhentaiSearchV2 = process.env.NHENTAI_SEARCH_V2.toString();
 
 const handleNhentaiSearch = async (searhParams, client, replyToken) => {
     try {
+        const isPopular = searhParams.split(' popular');
         const searchSanitize = searhParams.replace(' ', '%20');
-        const fetchSearchCrawler = await fetch(`${nhentaiSearchV2}?search=${searchSanitize}&sort=date`);
+        const fetchSearchCrawler = await fetch(`${nhentaiSearchV2}?search=${searchSanitize}&sort=${isPopular.length === 1 ? 'date' : 'popular'}`);
         const { arrayOfResult } = await fetchSearchCrawler.json();
 
         const arrayOfColumns = [];
@@ -49,6 +50,18 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                     "type": "image_carousel",
                     "columns": arrayOfColumns,
                 }
+            },
+            "quickReply": {
+                "items": [
+                    {
+                        "type": "action",
+                        "action": {
+                            "type": "message",
+                            "label": "popular",
+                            "text": `nhentai ${searhParams} popular`
+                        }
+                    }
+                ]
             }
         ]);
     } catch (err) {
