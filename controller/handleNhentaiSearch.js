@@ -4,13 +4,14 @@ const nhentaiSearchBypass = process.env.NHENTAI_SEARCH_BYPASS.toString();
 const nhentaiSearchCrawler = process.env.NHENTAI_SEARCH_CRAWLER.toString();
 const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
 const nhentaiFullReader = process.env.NHENTAI_FULL_READER.toString();
+const nhentaiSearchV2 = process.env.NHENTAI_SEARCH_V2.toString();
 
 const handleNhentaiSearch = async (searhParams, client, replyToken) => {
     try {
         const searchSanitize = searhParams.replace(' ', '%20');
-        const fetchSearchCrawler = await fetch(nhentaiSearchCrawler + '?search=' + searchSanitize);
-        const searchResult = await fetchSearchCrawler.json();
-        const arrayOfResult = searchResult.arrayOfResult;
+        const fetchSearchCrawler = await fetch(`${nhentaiSearchV2}?search=${searchSanitize}`);
+        const { arrayOfResult } = await fetchSearchCrawler.json();
+
         const arrayOfColumns = [];
         if (arrayOfResult.length === 0) {
             return client.replyMessage(replyToken, {
