@@ -129,9 +129,9 @@ const handleEvent = (event) => {
                             type: 'image_carousel',
                             columns: arrayOfColumns,
                         },
-                        quickReply: {
-                            items: quickReplyList,
-                        }
+                        // quickReply: {
+                        //     items: quickReplyList,
+                        // }
                     }
                 ]);
             })();
