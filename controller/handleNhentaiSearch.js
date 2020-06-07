@@ -9,7 +9,7 @@ const nhentaiSearchV2 = process.env.NHENTAI_SEARCH_V2.toString();
 const handleNhentaiSearch = async (searhParams, client, replyToken) => {
     try {
         const searchSanitize = searhParams.replace(' ', '%20');
-        const fetchSearchCrawler = await fetch(`${nhentaiSearchV2}?search=${searchSanitize}`);
+        const fetchSearchCrawler = await fetch(`${nhentaiSearchV2}?search=${searchSanitize}&sort=date`);
         const { arrayOfResult } = await fetchSearchCrawler.json();
 
         const arrayOfColumns = [];
