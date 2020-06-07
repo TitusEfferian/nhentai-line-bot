@@ -86,7 +86,7 @@ const handleEvent = (event) => {
                 const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
                 const arrayOfColumns = [];
                 const resultFetchBeforeParse = await fetch(`${nhentaiCrawlerV2}?nhentai_id=${nhentaiCode}`);
-                const { arrayOfImage, num_pages, success } = await resultFetchBeforeParse.json();
+                const { arrayOfImage, num_pages, success, arrayOfCharacter } = await resultFetchBeforeParse.json();
                 if (success === false) {
                     return client.replyMessage(event.replyToken, {
                         type: 'text',
@@ -121,6 +121,34 @@ const handleEvent = (event) => {
                         }
                     });
                 }
+                if (arrayOfCharacter.length > 0) {
+                    return client.replyMessage(event.replyToken, [
+                        {
+                            type: 'text',
+                            text: 'klik gambar untuk melihat seluruh halaman',
+                        },
+                        {
+                            type: 'template',
+                            altText: `nhentai g/${nhentaiCode}`,
+                            template: {
+                                type: 'image_carousel',
+                                columns: arrayOfColumns,
+                            },
+                            quickReply: {
+                                items: arrayOfCharacter.map(x => {
+                                    return {
+                                        "type": "action",
+                                        "action": {
+                                            "type": "message",
+                                            "label": x,
+                                            "text": `nhentai ${x}`,
+                                        }
+                                    }
+                                }),
+                            }
+                        }
+                    ]);
+                }
                 return client.replyMessage(event.replyToken, [
                     {
                         type: 'text',
@@ -133,9 +161,6 @@ const handleEvent = (event) => {
                             type: 'image_carousel',
                             columns: arrayOfColumns,
                         },
-                        // quickReply: {
-                        //     items: quickReplyList,
-                        // }
                     }
                 ]);
             })();
