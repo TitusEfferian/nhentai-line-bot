@@ -20,6 +20,7 @@ const config = {
 };
 
 const nhentaiCrawler = process.env.NHENTAI_CRAWLER.toString();
+const nhentaiCrawlerV2 = process.env.NHENTAI_CRAWLER_V2.toString();
 const nhentaiByPass = process.env.NHENTAI_BYPASS.toString();
 const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
 const efferianGroupId = process.env.EFFERIAN_GROUP_ID.toString();
@@ -84,22 +85,25 @@ const handleEvent = (event) => {
                  */
                 const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
                 const arrayOfColumns = [];
-                const resultFetchBeforeParse = await fetch(nhentaiCrawler + '?nhentaiId=' + nhentaiCode);
-                const resultFetch = await resultFetchBeforeParse.json();
-                const arrayOfImage = resultFetch.arrayOfImage;
-                const totalPage = arrayOfImage.length;
-
-                if (totalPage === 0) {
+                const resultFetchBeforeParse = await fetch(`${nhentaiCrawlerV2}?nhentai_id=${nhentaiCode}`);
+                const { arrayOfImage, num_pages, success } = await resultFetchBeforeParse.json();
+                if (success === false) {
+                    return client.replyMessage(event.replyToken, {
+                        type: 'text',
+                        text: 'sorry something wrong'
+                    });
+                }
+                if (num_pages === 0) {
                     return client.replyMessage(event.replyToken, {
                         type: 'text',
                         text: nhentaiCode + ' not found',
                     })
                 }
                 const numberOfColumns = () => {
-                    if (totalPage > 5) {
+                    if (num_pages > 5) {
                         return 5;
                     }
-                    return totalPage
+                    return num_pages
                 }
                 const handleLabel = (currentIndex) => {
                     if (currentIndex === 5) {
