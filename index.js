@@ -125,7 +125,7 @@ const handleEvent = (event) => {
                     return client.replyMessage(event.replyToken, [
                         {
                             type: 'text',
-                            text: 'klik gambar untuk melihat seluruh halaman',
+                            text: 'click the pictures to see full content',
                         },
                         {
                             type: 'template',
@@ -152,7 +152,7 @@ const handleEvent = (event) => {
                 return client.replyMessage(event.replyToken, [
                     {
                         type: 'text',
-                        text: 'klik gambar untuk melihat seluruh halaman',
+                        text: 'click the pictures to see full content',
                     },
                     {
                         type: 'template',

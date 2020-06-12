@@ -14,7 +14,7 @@ const handleRandomNhentai = async (client, replyToken) => {
             return client.replyMessage(replyToken, [
                 {
                     "type": "text",
-                    "text": "klik gambar untuk melihat seluruh halaman",
+                    "text": "click the pictures to see full content",
                 },
                 {
                     "type": "template",
