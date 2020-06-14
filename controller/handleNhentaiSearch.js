@@ -1,6 +1,5 @@
 const fetch = require('isomorphic-unfetch');
 
-const nhentaiSearchBypass = process.env.NHENTAI_SEARCH_BYPASS.toString();
 const nhentaiSearchCrawler = process.env.NHENTAI_SEARCH_CRAWLER.toString();
 const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
 const nhentaiFullReader = process.env.NHENTAI_FULL_READER.toString();
