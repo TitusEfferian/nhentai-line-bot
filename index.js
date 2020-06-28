@@ -10,6 +10,7 @@ const handleTestDb = require('./controller/handleTestDb');
 const handleHelpMessage = require('./controller/handleHelpMessage');
 const handleNhentaiRandom = require('./controller/handleRandomNhentai');
 const handleStoreImage = require('./controller/handleStoreImage');
+const handleNhentaiPopularToday = require('./controller/handleNhentaiPopularToday');
 const handleSauce = require('./controller/handleSauce');
 const handleVision = require('./controller/handleVision');
 const quickReplyList = require('./controller/quickReply');
@@ -176,6 +177,10 @@ const handleEvent = (event) => {
             if (searchKeywords === 'random') {
                 (async () => {
                     await handleNhentaiRandom(client, event.replyToken);
+                })();
+            } else if (searchKeywords === 'popular today') {
+                (async () => {
+                    await handleNhentaiPopularToday(client, event.replyToken);
                 })();
             } else {
                 (async () => {
