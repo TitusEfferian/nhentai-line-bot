@@ -14,8 +14,8 @@ const handleNhentaiPopularToday = async (client, replyToken) => {
                     "imageUrl": `${nhentaiByPassOriginal}?source=${x.preview}`,
                     "action": {
                         "type": "uri",
-                        "label": x.nhentai_id,
-                        "uri": `${nhentaiFullReader}?source=${x.nhentai_id.split('/')[1]}`,
+                        "label": `g/${x.nhentai_id}`,
+                        "uri": `${nhentaiFullReader}?source=${x.nhentai_id}`,
                     }
                 }
             })
