@@ -1,8 +1,10 @@
 const fetch = require('isomorphic-unfetch');
 
+const nhentaiPopularToday = process.env.NHENTAI_POPULAR_TODAY.toString();
+
 const handleNhentaiPopularToday = async (client, replyToken) => {
     try {
-        const resultPopular = await fetch('https://asia-east2-fleet-range-273715.cloudfunctions.net/popular-now');
+        const resultPopular = await fetch(nhentaiPopularToday);
         const { success, arrayOfResult } = await resultPopular.json();
         if (success) {
             return client.replyMessage(replyToken, {
