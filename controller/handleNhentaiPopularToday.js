@@ -1,6 +1,8 @@
 const fetch = require('isomorphic-unfetch');
 
 const nhentaiPopularToday = process.env.NHENTAI_POPULAR_TODAY.toString();
+const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
+const nhentaiFullReader = process.env.NHENTAI_FULL_READER.toString();
 
 const handleNhentaiPopularToday = async (client, replyToken) => {
     try {

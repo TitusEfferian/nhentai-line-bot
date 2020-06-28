@@ -178,7 +178,7 @@ const handleEvent = (event) => {
                 (async () => {
                     await handleNhentaiRandom(client, event.replyToken);
                 })();
-            } else if (searchKeywords === 'popular today') {
+            } else if (searchKeywords === 'popular now') {
                 (async () => {
                     await handleNhentaiPopularToday(client, event.replyToken);
                 })();
