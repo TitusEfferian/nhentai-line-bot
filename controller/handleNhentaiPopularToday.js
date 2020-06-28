@@ -7,10 +7,30 @@ const handleNhentaiPopularToday = async (client, replyToken) => {
         const resultPopular = await fetch(nhentaiPopularToday);
         const { success, arrayOfResult } = await resultPopular.json();
         if (success) {
-            return client.replyMessage(replyToken, {
-                type: 'text',
-                text: String(success),
+            const arrayOfColumns = arrayOfResult.map(x => {
+                return {
+                    "imageUrl": `${nhentaiByPassOriginal}?source=${x.preview}`,
+                    "action": {
+                        "type": "uri",
+                        "label": x.nhentai_id,
+                        "uri": `${nhentaiFullReader}?source=${x.nhentai_id.split('/')[1]}`,
+                    }
+                }
             })
+            return client.replyMessage(replyToken, [
+                {
+                    type: 'text',
+                    text: 'click the pictures to see full content',
+                },
+                {
+                    "type": "template",
+                    "altText": "nhentai results",
+                    "template": {
+                        "type": "image_carousel",
+                        "columns": arrayOfColumns,
+                    },
+                },
+            ]);
         }
         return client.replyMessage(replyToken, {
             type: 'text',
