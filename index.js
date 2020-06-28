@@ -21,7 +21,6 @@ const config = {
 
 const nhentaiCrawler = process.env.NHENTAI_CRAWLER.toString();
 const nhentaiCrawlerV2 = process.env.NHENTAI_CRAWLER_V2.toString();
-const nhentaiByPass = process.env.NHENTAI_BYPASS.toString();
 const nhentaiByPassOriginal = process.env.NHENTAI_BYPASS_ORIGINAL.toString();
 const efferianGroupId = process.env.EFFERIAN_GROUP_ID.toString();
 const nhentaiFullReader = process.env.NHENTAI_FULL_READER.toString();
@@ -31,7 +30,7 @@ const app = express();
 const client = new line.Client(config);
 
 const handleEvent = (event) => {
-    if (event.type !== 'message') {
+    if (event.type !== 'message' && event.message.type !== 'text') {
         return Promise.resolve(null);
     }
 
@@ -80,48 +79,75 @@ const handleEvent = (event) => {
         }
         if (event.message.text.toLowerCase().startsWith('g/')) {
             (async () => {
-                /**
-                 * end of ramadhan block request
-                 */
-                const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
-                const arrayOfColumns = [];
-                const resultFetchBeforeParse = await fetch(`${nhentaiCrawlerV2}?nhentai_id=${nhentaiCode}`);
-                const { arrayOfImage, num_pages, success, arrayOfCharacter } = await resultFetchBeforeParse.json();
-                if (success === false) {
-                    return client.replyMessage(event.replyToken, {
-                        type: 'text',
-                        text: 'sorry something wrong'
-                    });
-                }
-                if (num_pages === 0) {
-                    return client.replyMessage(event.replyToken, {
-                        type: 'text',
-                        text: nhentaiCode + ' not found',
-                    })
-                }
-                const numberOfColumns = () => {
-                    if (num_pages > 5) {
-                        return 5;
+                try {
+                    const nhentaiCode = event.message.text.toLowerCase().split('/')[1];
+                    const arrayOfColumns = [];
+                    const resultFetchBeforeParse = await fetch(`${nhentaiCrawlerV2}?nhentai_id=${nhentaiCode}`);
+                    const { arrayOfImage, num_pages, success, arrayOfCharacter } = await resultFetchBeforeParse.json();
+
+                    if (success === false) {
+                        return client.replyMessage(event.replyToken, {
+                            type: 'text',
+                            text: 'sorry something wrong'
+                        });
                     }
-                    return num_pages
-                }
-                const handleLabel = (currentIndex) => {
-                    if (currentIndex === 5) {
-                        return `view more`;
+                    if (num_pages === 0) {
+                        return client.replyMessage(event.replyToken, {
+                            type: 'text',
+                            text: nhentaiCode + ' not found',
+                        })
                     }
-                    return `${String(currentIndex)}`;
-                }
-                for (let a = 1; a <= numberOfColumns(); a++) {
-                    arrayOfColumns.push({
-                        "imageUrl": `${nhentaiByPassOriginal}?source=${arrayOfImage[a - 1].preview}`,
-                        "action": {
-                            "type": "uri",
-                            "label": handleLabel(a),
-                            "uri": `${nhentaiFullReader}?source=${nhentaiCode}`,
+                    const numberOfColumns = () => {
+                        if (num_pages > 5) {
+                            return 5;
                         }
-                    });
-                }
-                if (arrayOfCharacter.length > 0) {
+                        return num_pages
+                    }
+                    const handleLabel = (currentIndex) => {
+                        if (currentIndex === 5) {
+                            return `view more`;
+                        }
+                        return `${String(currentIndex)}`;
+                    }
+                    for (let a = 1; a <= numberOfColumns(); a++) {
+                        arrayOfColumns.push({
+                            "imageUrl": `${nhentaiByPassOriginal}?source=${arrayOfImage[a - 1].preview}`,
+                            "action": {
+                                "type": "uri",
+                                "label": handleLabel(a),
+                                "uri": `${nhentaiFullReader}?source=${nhentaiCode}`,
+                                // "uri": `https://nhentai-unofficial-web-hlti3cdqaa-uc.a.run.app/?source=${nhentaiCode}`,
+                            }
+                        });
+                    }
+                    if (arrayOfCharacter.length > 0) {
+                        return client.replyMessage(event.replyToken, [
+                            {
+                                type: 'text',
+                                text: 'click the pictures to see full content',
+                            },
+                            {
+                                type: 'template',
+                                altText: `nhentai g/${nhentaiCode}`,
+                                template: {
+                                    type: 'image_carousel',
+                                    columns: arrayOfColumns,
+                                },
+                                quickReply: {
+                                    items: arrayOfCharacter.map(x => {
+                                        return {
+                                            "type": "action",
+                                            "action": {
+                                                "type": "message",
+                                                "label": x,
+                                                "text": `nhentai ${x}`,
+                                            }
+                                        }
+                                    }),
+                                }
+                            }
+                        ]);
+                    }
                     return client.replyMessage(event.replyToken, [
                         {
                             type: 'text',
@@ -134,35 +160,15 @@ const handleEvent = (event) => {
                                 type: 'image_carousel',
                                 columns: arrayOfColumns,
                             },
-                            quickReply: {
-                                items: arrayOfCharacter.map(x => {
-                                    return {
-                                        "type": "action",
-                                        "action": {
-                                            "type": "message",
-                                            "label": x,
-                                            "text": `nhentai ${x}`,
-                                        }
-                                    }
-                                }),
-                            }
                         }
                     ]);
-                }
-                return client.replyMessage(event.replyToken, [
-                    {
+                } catch (err) {
+                    console.log(err)
+                    return client.replyMessage(event.replyToken, {
                         type: 'text',
-                        text: 'click the pictures to see full content',
-                    },
-                    {
-                        type: 'template',
-                        altText: `nhentai g/${nhentaiCode}`,
-                        template: {
-                            type: 'image_carousel',
-                            columns: arrayOfColumns,
-                        },
-                    }
-                ]);
+                        text: JSON.stringify(err)
+                    });
+                }
             })();
         }
         if (event.message.text.toLowerCase().startsWith('nhentai')) {
@@ -195,11 +201,11 @@ const handleEvent = (event) => {
             })()
         }
     }
-    if (event.message.type === 'image') {
-        (async () => {
-            await handleStoreImage(client, event);
-        })();
-    }
+    // if (event.message.type === 'image') {
+    //     (async () => {
+    //         await handleStoreImage(client, event);
+    //     })();
+    // }
     return Promise.resolve(null);
 }
 

@@ -33,6 +33,7 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                         "type": "uri",
                         "label": arrayOfResult[a - 1].nhentai_id,
                         "uri": `${nhentaiFullReader}?source=${arrayOfResult[a - 1].nhentai_id.split('/')[1]}`,
+                        // "uri": `https://nhentai.net/g/${arrayOfResult[a - 1].nhentai_id.split('/')[1]}`,
                     }
                 }
             )
@@ -40,8 +41,8 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
         if (isPopular.length === 1) {
             return client.replyMessage(replyToken, [
                 {
-                    "type": "text",
-                    "text": "click the pictures to see full content",
+                    type: 'text',
+                    text: 'click the pictures to see full content',
                 },
                 {
                     "type": "template",
@@ -67,8 +68,8 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
         }
         return client.replyMessage(replyToken, [
             {
-                "type": "text",
-                "text": "click the pictures to see full content",
+                type: 'text',
+                text: 'click the pictures to see full content',
             },
             {
                 "type": "template",

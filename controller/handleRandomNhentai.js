@@ -12,8 +12,8 @@ const handleRandomNhentai = async (client, replyToken) => {
         if (success) {
             return client.replyMessage(replyToken, [
                 {
-                    "type": "text",
-                    "text": "click the pictures to see full content",
+                    type: 'text',
+                    text: 'click the pictures to see full content',
                 },
                 {
                     "type": "template",
