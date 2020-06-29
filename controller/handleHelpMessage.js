@@ -8,6 +8,14 @@ const handleHelpMessage = async (client, replyToken) => {
                     "type": "action",
                     "action": {
                         "type": "message",
+                        "label": "popular now",
+                        "text": 'nhentai popular now',
+                    }
+                },
+                {
+                    "type": "action",
+                    "action": {
+                        "type": "message",
                         "label": "reader",
                         "text": 'g/310084',
                     }
