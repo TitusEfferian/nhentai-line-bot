@@ -60,6 +60,14 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                                     "label": "sort by popular",
                                     "text": `nhentai ${searhParams} popular`
                                 }
+                            },
+                            {
+                                "type": "action",
+                                "action": {
+                                    "type": "message",
+                                    "label": "popular now",
+                                    "text": `nhentai popular now`
+                                }
                             }
                         ]
                     }
@@ -78,6 +86,18 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
                     "type": "image_carousel",
                     "columns": arrayOfColumns,
                 },
+                "quickReply": {
+                        "items": [
+                            {
+                                "type": "action",
+                                "action": {
+                                    "type": "message",
+                                    "label": "popular now",
+                                    "text": `nhentai popular now`
+                                }
+                            }
+                        ]
+                    }
             },
         ]);
     } catch (err) {
