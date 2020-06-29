@@ -161,6 +161,18 @@ const handleEvent = (event) => {
                                 type: 'image_carousel',
                                 columns: arrayOfColumns,
                             },
+                            quickReply: {
+                                items: [
+                                    {
+                                        type: "action",
+                                        action: {
+                                            type: "message",
+                                            label: "try popular now",
+                                            text: `nhentai popular now`
+                                        }
+                                    }
+                                ]
+                            }
                         }
                     ]);
                 } catch (err) {
