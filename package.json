@@ -9,7 +9,20 @@
     "@google-cloud/vision": "^1.11.0",
     "@line/bot-sdk": "^6.8.4",
     "express": "^4.17.1",
+    "husky": "^4.2.5",
     "isomorphic-unfetch": "^3.0.0",
-    "moment-timezone": "^0.5.28"
+    "lint-staged": "^10.2.11",
+    "moment-timezone": "^0.5.28",
+    "prettier": "^2.0.5"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

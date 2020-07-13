@@ -1,7 +1,7 @@
-const { Storage } = require('@google-cloud/storage');
+const { Storage } = require("@google-cloud/storage");
 
 const storage = new Storage({
-    keyFilename: './database.json',
+  keyFilename: "./database.json",
 });
 
 module.exports = storage;
