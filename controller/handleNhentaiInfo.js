@@ -12,7 +12,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
   if (!success || error) {
     return client.replyMessage(replyToken, {
       type: "text",
-      text: "no info found for this search term " + searhParams,
+      text: "no info found for this search term " + searchParams,
     });
   } else if (success) {
     const titleData = data.title;
