@@ -12,6 +12,7 @@
     "husky": "^4.2.5",
     "isomorphic-unfetch": "^3.0.0",
     "lint-staged": "^10.2.11",
+    "lodash": "^4.17.19",
     "moment-timezone": "^0.5.28",
     "prettier": "^2.0.5"
   },

@@ -1,4 +1,5 @@
 const fetch = require("isomorphic-unfetch");
+const get = require("lodash/get");
 
 const nhentaiGetInfo = process.env.NHENTAI_SEARCH_INFO.toString();
 
@@ -6,7 +7,7 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
   const fetchGethInfo = await fetch(`${nhentaiGetInfo}?id=${searchParams}`);
   const { success, data } = await fetchGethInfo.json();
 
-  const error = data.error || "";
+  const error = get(data, "error", false);
 
   if (!success || error) {
     return client.replyMessage(replyToken, {
