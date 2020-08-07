@@ -3,20 +3,26 @@ const fetch = require("isomorphic-unfetch");
 const nhentaiGetInfo = process.env.NHENTAI_SEARCH_INFO.toString();
 
 const handleNhentaiInfo = async (searchParams, client, replyToken) => {
-  const fetchGethInfo = await fetch(nhentaiGetInfo + "?id=" + searchParams);
-  const infoResult = await fetchGethInfo.json();
-  const parsedJson = JSON.parse(JSON.stringify(infoResult));
-  const resultData = parsedJson.data;
-  const titleData = parsedJson.data.title;
-  const tagsData = resultData.tags;
+  const fetchGethInfo = await fetch(`${nhentaiGetInfo}?id=${searchParams}`);
+  const { success, data } = await fetchGethInfo.json();
 
-  const tags = tagsData.filter((x) => x.type == "tag");
-  const language = tagsData.filter((x) => x.type === "language");
-  const artist = tagsData.filter((x) => x.type === "artist");
-  const parody = tagsData.filter((x) => x.type === "parody");
-  const character = tagsData.filter((x) => x.type === "character");
+  const error = data.error || "";
 
-  if (infoResult.success === true) {
+  if (!success || error) {
+    return client.replyMessage(replyToken, {
+      type: "text",
+      text: "no info found for this search term " + searhParams,
+    });
+  } else if (success) {
+    const titleData = data.title;
+    const tagsData = data.tags;
+
+    const tags = tagsData.filter((x) => x.type == "tag");
+    const language = tagsData.filter((x) => x.type === "language");
+    const artist = tagsData.filter((x) => x.type === "artist");
+    const parody = tagsData.filter((x) => x.type === "parody");
+    const character = tagsData.filter((x) => x.type === "character");
+
     return client.replyMessage(replyToken, {
       type: "text",
       text:
@@ -44,11 +50,6 @@ const handleNhentaiInfo = async (searchParams, client, replyToken) => {
           .join(", ")
           .toString() +
         `\n\n`,
-    });
-  } else if (infoResult.success === false || resultData.error === true) {
-    return client.replyMessage(replyToken, {
-      type: "text",
-      text: "no info found for this search term " + searhParams,
     });
   } else {
     return client.replyMessage(replyToken, {
