@@ -31,6 +31,7 @@ const app = express();
 const client = new line.Client(config);
 
 const handleEvent = (event) => {
+  console.log(event);
   if (event.type !== "message" || event.message.type !== "text") {
     return Promise.resolve(null);
   }
@@ -39,7 +40,6 @@ const handleEvent = (event) => {
    * handle all text case
    */
   if (event.message.type === "text") {
-    console.log(event);
     if (
       event.message.text.toLowerCase().startsWith("!help") ||
       event.message.text.toLowerCase() === "help"
