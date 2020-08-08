@@ -242,11 +242,11 @@ const handleEvent = (event) => {
         await handleNhentaiInfo(nhentaiCode, client, event.replyToken);
       })();
     }
-    if (event.message.text.toLowerCase().startsWith("sauce")) {
-      (async () => {
-        await handleSauce(client, event);
-      })();
-    }
+    // if (event.message.text.toLowerCase().startsWith("sauce")) {
+    //   (async () => {
+    //     await handleSauce(client, event);
+    //   })();
+    // }
     if (event.message.text.toLowerCase().startsWith("!vision")) {
       (async () => {
         const imageName = event.message.text.toLowerCase().split("!vision ")[1];
