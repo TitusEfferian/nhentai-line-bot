@@ -31,7 +31,7 @@ const app = express();
 const client = new line.Client(config);
 
 const handleEvent = (event) => {
-  if (event.type !== "message" && event.message.type !== "text") {
+  if (event.type !== "message" || event.message.type !== "text") {
     return Promise.resolve(null);
   }
 
