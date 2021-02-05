@@ -29,8 +29,9 @@ const handleRandomNhentai = async (client, replyToken) => {
                   //   uri: `${nhentaiFullReader}?source=${
                   //     getRandomTag.split("/")[1]
                   //   }`,
-                  uri:
-                    "https://asia-southeast2-fleet-range-273715.cloudfunctions.net/maintenance",
+                  uri: `https://nhentai-line-bot.vercel.app/${
+                    getRandomTag.split("/")[1]
+                  }`,
                 },
               },
             ],

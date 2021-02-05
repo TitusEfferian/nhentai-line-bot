@@ -16,8 +16,7 @@ const handleNhentaiPopularToday = async (client, replyToken) => {
             type: "uri",
             label: `g/${x.nhentai_id}`,
             // uri: `${nhentaiFullReader}?source=${x.nhentai_id}`,
-            uri:
-              "https://asia-southeast2-fleet-range-273715.cloudfunctions.net/maintenance",
+            uri: `https://nhentai-line-bot.vercel.app/${x.nhentai_id}`,
           },
         };
       });
