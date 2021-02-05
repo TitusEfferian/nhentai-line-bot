@@ -148,7 +148,8 @@ const handleEvent = (event) => {
               action: {
                 type: "uri",
                 label: handleLabel(a),
-                uri: `${nhentaiFullReader}?source=${nhentaiCode}`,
+                uri: "",
+                // uri: `${nhentaiFullReader}?source=${nhentaiCode}`,
                 // "uri": `https://nhentai-unofficial-web-hlti3cdqaa-uc.a.run.app/?source=${nhentaiCode}`,
               },
             });

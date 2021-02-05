@@ -15,7 +15,8 @@ const handleNhentaiPopularToday = async (client, replyToken) => {
           action: {
             type: "uri",
             label: `g/${x.nhentai_id}`,
-            uri: `${nhentaiFullReader}?source=${x.nhentai_id}`,
+            // uri: `${nhentaiFullReader}?source=${x.nhentai_id}`,
+            uri: "",
           },
         };
       });

@@ -26,9 +26,10 @@ const handleRandomNhentai = async (client, replyToken) => {
                 action: {
                   type: "uri",
                   label: getRandomTag,
-                  uri: `${nhentaiFullReader}?source=${
-                    getRandomTag.split("/")[1]
-                  }`,
+                  //   uri: `${nhentaiFullReader}?source=${
+                  //     getRandomTag.split("/")[1]
+                  //   }`,
+                  uri: "",
                 },
               },
             ],
