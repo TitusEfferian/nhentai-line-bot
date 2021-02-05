@@ -42,6 +42,9 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
           //   uri: `${nhentaiFullReader}?source=${
           //     arrayOfResult[a - 1].nhentai_id.split("/")[1]
           //   }`,
+          uri: `https://nhentai-line-bot.vercel.app/${
+            arrayOfResult[a - 1].nhentai_id.split("/")[1]
+          }`,
           // "uri": `https://nhentai.net/g/${arrayOfResult[a - 1].nhentai_id.split('/')[1]}`,
         },
       });
