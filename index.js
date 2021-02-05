@@ -148,7 +148,8 @@ const handleEvent = (event) => {
               action: {
                 type: "uri",
                 label: handleLabel(a),
-                uri: "",
+                uri:
+                  "https://asia-southeast2-fleet-range-273715.cloudfunctions.net/maintenance",
                 // uri: `${nhentaiFullReader}?source=${nhentaiCode}`,
                 // "uri": `https://nhentai-unofficial-web-hlti3cdqaa-uc.a.run.app/?source=${nhentaiCode}`,
               },

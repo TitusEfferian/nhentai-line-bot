@@ -29,7 +29,8 @@ const handleRandomNhentai = async (client, replyToken) => {
                   //   uri: `${nhentaiFullReader}?source=${
                   //     getRandomTag.split("/")[1]
                   //   }`,
-                  uri: "",
+                  uri:
+                    "https://asia-southeast2-fleet-range-273715.cloudfunctions.net/maintenance",
                 },
               },
             ],

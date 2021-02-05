@@ -37,7 +37,8 @@ const handleNhentaiSearch = async (searhParams, client, replyToken) => {
         action: {
           type: "uri",
           label: arrayOfResult[a - 1].nhentai_id,
-          uri: "",
+          uri:
+            "https://asia-southeast2-fleet-range-273715.cloudfunctions.net/maintenance",
           //   uri: `${nhentaiFullReader}?source=${
           //     arrayOfResult[a - 1].nhentai_id.split("/")[1]
           //   }`,
